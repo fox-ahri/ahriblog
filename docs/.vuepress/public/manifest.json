@@ -1,0 +1,11 @@
+{
+    "name": "狸知",
+    "short_name": "AK",
+    "description": "狸知 - Ahriknow",
+    "icons": [
+        { "src": "/favicon.ico", "type": "image/x-icon", "sizes": "64x64" }
+    ],
+    "background_color": "#2196f3",
+    "display": "standalone",
+    "start_url": "index.html"
+}
