@@ -1,5 +1,3 @@
-
-
 ## LVS概念:
 #### lvs 集群类型中的术语:
 - VS: Virtual Server(lvs), Director Server(DS)

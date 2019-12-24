@@ -3,18 +3,14 @@ const nav = require('../../config/navConf')
 const sidebar = require('../../config/sidebarConf/index')
 
 module.exports = {
-    title: 'Ahriblog',
+    title: '狸知',
     description: 'Ahriblog ahriknow blog vue python java',
     head: [
+        ['link', { rel: 'apple-touch-icon', href: '/favicon.ico' }],
         ['link', { rel: 'icon', href: '/favicon.ico' }],
-        ['link', { rel: 'manifest', href: '/manifest.json' }]
+        ['link', { rel: 'manifest', href: '/manifest.json' }],
+        ['meta', { name: 'theme-color', content: '#ffffff' }]
     ],
-    locales: {
-        '/': {
-            lang: '简体中文',
-            title: '狸知'
-        }
-    },
     plugins: plugins,
     themeConfig: {
         smoothScroll: true,
