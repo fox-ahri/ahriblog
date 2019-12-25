@@ -6,9 +6,9 @@ script:
     - npm run cname
 deploy:
     provider: pages
-    skip-cleanup: true
+    skip_cleanup: true
     local_dir: docs/.vuepress/dist
-    github-token: $ahriknow
+    github_token: $ahriknow
     keep-history: true
     on:
         branch: master
