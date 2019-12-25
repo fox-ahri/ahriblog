@@ -1,3 +1,7 @@
+---
+title: LVS
+---
+
 ## LVS概念:
 #### lvs 集群类型中的术语:
 - VS: Virtual Server(lvs), Director Server(DS)
@@ -44,3 +48,5 @@ Direct Routing, 直接路由, LVS默认模式, 应用最广泛, 通过为请求�
     - 在RS上修改内核参数以限制arp通告及应答级别
         - `/prop/sys/net/ipv4/conf/all/arp_ignore`
         - `/prop/sys/net/ipv4/conf/all/arp_announce`
+
+<Valine />

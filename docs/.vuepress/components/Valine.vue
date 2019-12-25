@@ -1,17 +1,18 @@
 <template>
     <div id="valine" class="valine">
+        <hr style="border-top: 4px dashed #ddd" />
         <div id="vcomments"></div>
     </div>
 </template>
 
 <script>
 export default {
+    name: 'valine',
     data() {
         return {
             window: null
         }
     },
-    name: 'valine',
     methods: {
         renderValine() {
             if (typeof window !== 'undefined') {
@@ -26,6 +27,7 @@ export default {
                 appKey: secretKeyConf.appKey,
                 notify: false,
                 verify: false,
+                path: window.location.pathname,
                 avatar: '',
                 placeholder: '留言'
             })
@@ -33,13 +35,17 @@ export default {
     },
     mounted() {
         this.renderValine()
+    },
+    watch: {
+        $route: {
+            handler: (to, from) => {
+                if (to.path !== from.path) {
+                    this.$nextTick(() => {
+                        this.renderValine()
+                    })
+                }
+            }
+        }
     }
 }
 </script>
-
-<style scoped>
-#valine {
-    padding: 0;
-    margin: 0;
-}
-</style>
