@@ -2,6 +2,23 @@
 title: LVS
 ---
 
+## LSV介绍:
+#### LVS: Linux Virtual Server, 负载调度器, 集成内核 章文嵩
+- [官网 http://www.linuxvirtualserver.org/](http://www.linuxvirtualserver.org/)
+- VS: Virtual Server, 负责调度
+- RS: Real Server, 负责提供服务
+- L4: 四层路由器或交换机
+![LVS 拓扑图](https://ahriknow.oss-cn-beijing.aliyuncs.com/media/abook/lvs.png)
+#### 工作原理: VS根据请求报文的目标IP和目标协议及端口将其调度转发至某RS, 根据调度算法来挑选RS
+#### iptables/netfilter:
+- iptables: 用户空间的管理工具
+- netfilter: 内核空间上的框架
+- 流入: PREROUTING --> INPUT
+- 流出: OUTPUT --> POSTROUTING
+- 转发: PREROUTING --> FORWARD --> POSTROUTING
+- DNAT: 目标地址转换; PREROUTING
+
+
 ## LVS概念:
 #### lvs 集群类型中的术语:
 - VS: Virtual Server(lvs), Director Server(DS)
@@ -48,5 +65,15 @@ Direct Routing, 直接路由, LVS默认模式, 应用最广泛, 通过为请求�
     - 在RS上修改内核参数以限制arp通告及应答级别
         - `/prop/sys/net/ipv4/conf/all/arp_ignore`
         - `/prop/sys/net/ipv4/conf/all/arp_announce`
+
+
+## lvs-tun模式
+#### lvs-tun: 
+转发方式: 不修改请求报文的IP首部(源IP为CIP, 目标IP为VIP), 而在原IP报文之外再封装一个IP首部(源IP为DIP, 目标IP为RIP), 将报文发往挑目标RS, RS直接响应给客户端(源IP为VIP, 目标IP为CIP)
+- RS的网关一般不能指向DIP
+- 请求报文要经过 Director, 但相应不能经由Director
+- 不支持端口映射
+- 支持隧道
+
 
 <Valine />

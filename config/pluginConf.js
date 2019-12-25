@@ -13,7 +13,6 @@ module.exports = [
         '@vuepress/last-updated',
         {
             transformer: (timestamp, lang) => {
-                // 不要忘了安装 moment
                 const moment = require('moment')
                 moment.locale('zh-CN')
                 return moment(timestamp).fromNow()
@@ -22,9 +21,12 @@ module.exports = [
     ],
     ['@vuepress/plugin-back-to-top'],
     [
-        '@vuepress/plugin-google-analytics',
+        '@vuepress/medium-zoom',
         {
-            ga: 'UA-154978622-1'
+            options: {
+                margin: 16,
+                background: "#ddd"
+            }
         }
     ]
 ]

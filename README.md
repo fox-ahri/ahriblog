@@ -1,5 +1,11 @@
 ## 介绍
 
+[![Build Status](https://travis-ci.com/fox-ahri/ahriblog.svg?branch=master)](https://travis-ci.com/fox-ahri/ahriblog)
+[![GitHub license](https://img.shields.io/github/license/fox-ahri/ahriblog)](https://github.com/fox-ahri/ahriblog/blob/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/fox-ahri/ahriblog)](https://github.com/fox-ahri/ahriblog/issues)
+[![GitHub stars](https://img.shields.io/github/stars/fox-ahri/ahriblog)](https://github.com/fox-ahri/ahriblog/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/fox-ahri/ahriblog)](https://github.com/fox-ahri/ahriblog/network)
+
 这是一个基于 `vuePress` 的文档
 
 [https://blog.ahriknow.com/](https://blog.ahriknow.com/)

@@ -60,21 +60,4 @@ title: Cluster
     - coresync_pacemaker
 
 
-## LSV介绍:
-![LVS 拓扑图](https://ahriknow.oss-cn-beijing.aliyuncs.com/media/abook/lvs.png)
-#### LVS: Linux Virtual Server, 负载调度器, 集成内核 章文嵩
-- [官网 http://www.linuxvirtualserver.org/](http://www.linuxvirtualserver.org/)
-- VS: Virtual Server, 负责调度
-- RS: Real Server, 负责提供服务
-- L4: 四层路由器或交换机
-#### 工作原理: VS根据请求报文的目标IP和目标协议及端口将其调度转发至某RS, 根据调度算法来挑选RS
-#### iptables/netfilter:
-- iptables: 用户空间的管理工具
-- netfilter: 内核空间上的框架
-- 流入: PREROUTING --> INPUT
-- 流出: OUTPUT --> POSTROUTING
-- 转发: PREROUTING --> FORWARD --> POSTROUTING
-- DNAT: 目标地址转换; PREROUTING
-
-
 <Valine />

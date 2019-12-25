@@ -12,6 +12,13 @@ module.exports = {
         ['meta', { name: 'theme-color', content: '#ffffff' }]
     ],
     plugins: plugins,
+    markdown: {
+        anchor: { permalink: false },
+        toc: { includeLevel: [1, 2, 3] },
+        extendMarkdown: md => {
+            md.use(require('markdown-it-emoji'))
+        }
+    },
     themeConfig: {
         smoothScroll: true,
         repo: 'fox-ahri/ahriblog',
