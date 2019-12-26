@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Docker使用前提 | 狸知</title>
+    <meta name="description" content="Ahriblog ahriknow blog vue python java">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+    
+    <link rel="preload" href="/assets/css/0.styles.4b83d720.css" as="style"><link rel="preload" href="/assets/js/app.12b15a81.js" as="script"><link rel="preload" href="/assets/js/2.4cad4d5d.js" as="script"><link rel="preload" href="/assets/js/13.e67d5511.js" as="script"><link rel="preload" href="/assets/js/6.6c97654b.js" as="script"><link rel="preload" href="/assets/js/4.ff301f7b.js" as="script"><link rel="prefetch" href="/assets/js/10.0d68678d.js"><link rel="prefetch" href="/assets/js/11.e9a617aa.js"><link rel="prefetch" href="/assets/js/12.a2b5e066.js"><link rel="prefetch" href="/assets/js/14.60564777.js"><link rel="prefetch" href="/assets/js/15.86614932.js"><link rel="prefetch" href="/assets/js/16.1a47d629.js"><link rel="prefetch" href="/assets/js/17.bb0aa31b.js"><link rel="prefetch" href="/assets/js/18.21e1aed6.js"><link rel="prefetch" href="/assets/js/19.c709f2ba.js"><link rel="prefetch" href="/assets/js/20.2f4eea85.js"><link rel="prefetch" href="/assets/js/21.f4fc292e.js"><link rel="prefetch" href="/assets/js/3.9adee656.js"><link rel="prefetch" href="/assets/js/5.ab83d4ec.js"><link rel="prefetch" href="/assets/js/7.63972d16.js"><link rel="prefetch" href="/assets/js/8.31176502.js"><link rel="prefetch" href="/assets/js/9.cdfd327c.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.4b83d720.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">狸知</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><div class="nav-item"><a href="https://admin.ahriknow.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Ahriknow
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/fox-ahri/ahriblog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><div class="nav-item"><a href="https://admin.ahriknow.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Ahriknow
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/fox-ahri/ahriblog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Docker (容器技术)</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docker/前世今生.html" class="sidebar-link">前世今生</a></li><li><a href="/docker/CentOS7安装.html" class="sidebar-link">CentOS7安装</a></li><li><a href="/docker/Docker使用前提.html" class="active sidebar-link">Docker使用前提</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docker/Docker使用前提.html#本页目录" class="sidebar-link">本页目录</a></li><li class="sidebar-sub-header"><a href="/docker/Docker使用前提.html#docker-是怎么工作的" class="sidebar-link">Docker 是怎么工作的</a></li><li class="sidebar-sub-header"><a href="/docker/Docker使用前提.html#docker-为什么比-vm-快" class="sidebar-link">Docker 为什么比 VM 快</a></li><li class="sidebar-sub-header"><a href="/docker/Docker使用前提.html#仓库-镜像-容器" class="sidebar-link">仓库 镜像 容器</a></li><li class="sidebar-sub-header"><a href="/docker/Docker使用前提.html#帮助命令" class="sidebar-link">帮助命令</a></li></ul></li><li><a href="/docker/Docker镜像命令.html" class="sidebar-link">Docker镜像命令</a></li><li><a href="/docker/Docker容器命令.html" class="sidebar-link">Docker容器命令</a></li><li><a href="/docker/待续.html" class="sidebar-link">待续...</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="本页目录">本页目录</h2> <p></p><div class="table-of-contents"><ul><li><a href="#本页目录">本页目录</a></li><li><a href="#docker-是怎么工作的">Docker 是怎么工作的</a></li><li><a href="#docker-为什么比-vm-快">Docker 为什么比 VM 快</a></li><li><a href="#仓库-镜像-容器">仓库 镜像 容器</a></li><li><a href="#帮助命令">帮助命令</a></li></ul></div><p></p> <h2 id="docker-是怎么工作的">Docker 是怎么工作的</h2> <p>Docker 是一个 Client-Server 结构的系统，Docker 守护进程运行在主机上，然后通过 Socket 连接从客户端访问，守护进程从客户端接收命令并管理运行在主机上的容器。</p> <h2 id="docker-为什么比-vm-快">Docker 为什么比 VM 快</h2> <ul><li>Docker 有着比虚拟机更少的抽象层，由于 Docker 不需要 Hypervisor 实现硬件资源虚拟化，运行在 docker 容器上的程序直接使用的都是实际物理机的硬件资源，因此在 CPU、内存利用率上 docker 将会有明显的优势。</li> <li>Docker 利用的是宿主机的内核，而不需要 Guest OS。 因此当新建一个容器时，docker不需要和虚拟机一样重载一个操作系统内核，新建一个 docker 容器只需要几秒钟。</li></ul> <table><thead><tr><th>方向</th> <th>Docker</th> <th>VM</th></tr></thead> <tbody><tr><td>操作系统</td> <td>与宿主机共享OS</td> <td>宿主机OS上运行虚拟机OS</td></tr> <tr><td>存储大小</td> <td>镜像小，便于传输存储</td> <td>镜像庞大，vmdk、vdi等</td></tr> <tr><td>运行性能</td> <td>极小的性能损失</td> <td>额外的操作系统所占的资源</td></tr> <tr><td>一致性</td> <td>灵活</td> <td>也还好</td></tr> <tr><td>硬件亲和性</td> <td>面向软件开发者</td> <td>面向硬件运维者</td></tr></tbody></table> <h2 id="仓库-镜像-容器">仓库 镜像 容器</h2> <ul><li>Docker仓库 类似于 Git 类似，注册服务器(Register) 类似于 GitHub。<br>
+Docker仓库 是用来包含镜像的位置，Docker 提供一个 Register 来保存多个仓库，每个仓库又可以包含多个具备不同 tag 的镜像。Docker 的默认 Register 是 Docker Hub。
+仓库支持的操作类似 git，当用户创建了自己的镜像之后就可以使用 push 命令将它上传到公有或者私有仓库，这样下次在另外一台机器上使用这个镜像时候，只需要从仓库上 pull 下来就可以了。</li> <li>Docker的镜像概念类似于虚拟机里的镜像，是一个只读的模板，一个独立的文件系统，包括运行容器所需的数据，可以用来创建新的容器</li> <li>Docker容器是由Docker镜像创建的实例。Docker容器类似虚拟机，可以支持的操作包括启动，停止，删除等。每个容器间是相互隔离的，容器中会运行特定的应用，包含特定应用的代码及所需的依赖文件。</li></ul> <h2 id="帮助命令">帮助命令</h2> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># docker --help</span>
+
+Usage:  docker <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> COMMAND
+
+A self-sufficient runtime <span class="token keyword">for</span> containers
+
+Options:
+      --config string      Location of client config files <span class="token punctuation">(</span>default <span class="token string">&quot;/root/.docker&quot;</span><span class="token punctuation">)</span>
+  -c, --context string     Name of the context to use to connect to the daemon <span class="token punctuation">(</span>overrides DOCKER_HOST <span class="token function">env</span> var and default context <span class="token builtin class-name">set</span> with <span class="token string">&quot;docker context
+                           use&quot;</span><span class="token punctuation">)</span>
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket<span class="token punctuation">(</span>s<span class="token punctuation">)</span> to connect to
+  -l, --log-level string   Set the logging level <span class="token punctuation">(</span><span class="token string">&quot;debug&quot;</span><span class="token operator">|</span><span class="token string">&quot;info&quot;</span><span class="token operator">|</span><span class="token string">&quot;warn&quot;</span><span class="token operator">|</span><span class="token string">&quot;error&quot;</span><span class="token operator">|</span><span class="token string">&quot;fatal&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>default <span class="token string">&quot;info&quot;</span><span class="token punctuation">)</span>
+      --tls                Use TLS<span class="token punctuation">;</span> implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA <span class="token punctuation">(</span>default <span class="token string">&quot;/root/.docker/ca.pem&quot;</span><span class="token punctuation">)</span>
+      --tlscert string     Path to TLS certificate <span class="token function">file</span> <span class="token punctuation">(</span>default <span class="token string">&quot;/root/.docker/cert.pem&quot;</span><span class="token punctuation">)</span>
+      --tlskey string      Path to TLS key <span class="token function">file</span> <span class="token punctuation">(</span>default <span class="token string">&quot;/root/.docker/key.pem&quot;</span><span class="token punctuation">)</span>
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  builder     Manage builds
+  config      Manage Docker configs
+  container   Manage containers
+  context     Manage contexts
+  engine      Manage the docker engine
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  <span class="token function">service</span>     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Commands:
+  attach      Attach <span class="token builtin class-name">local</span> standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container‘s changes
+  <span class="token function">cp</span>          Copy files/folders between a container and the <span class="token builtin class-name">local</span> filesystem
+  create      Create a new container
+  <span class="token function">diff</span>        Inspect changes to files or directories on a container’s filesystem
+  events      Get real <span class="token function">time</span> events from the server
+  <span class="token builtin class-name">exec</span>        Run a <span class="token builtin class-name">command</span> <span class="token keyword">in</span> a running container
+  <span class="token builtin class-name">export</span>      Export a container‘s filesystem as a <span class="token function">tar</span> archive
+  <span class="token function">history</span>     Show the <span class="token function">history</span> of an image
+  images      List images
+  <span class="token function">import</span>      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  <span class="token function">kill</span>        Kill one or <span class="token function">more</span> running containers
+  load        Load an image from a <span class="token function">tar</span> archive or STDIN
+  login       Log <span class="token keyword">in</span> to a Docker registry
+  <span class="token builtin class-name">logout</span>      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or <span class="token function">more</span> containers
+  port        List port mappings or a specific mapping <span class="token keyword">for</span> the container
+  <span class="token function">ps</span>          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  <span class="token function">rename</span>      Rename a container
+  restart     Restart one or <span class="token function">more</span> containers
+  <span class="token function">rm</span>          Remove one or <span class="token function">more</span> containers
+  rmi         Remove one or <span class="token function">more</span> images
+  run         Run a <span class="token builtin class-name">command</span> <span class="token keyword">in</span> a new container
+  save        Save one or <span class="token function">more</span> images to a <span class="token function">tar</span> archive <span class="token punctuation">(</span>streamed to STDOUT by default<span class="token punctuation">)</span>
+  search      Search the Docker Hub <span class="token keyword">for</span> images
+  start       Start one or <span class="token function">more</span> stopped containers
+  stats       Display a live stream of container<span class="token punctuation">(</span>s<span class="token punctuation">)</span> resource usage statistics
+  stop        Stop one or <span class="token function">more</span> running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  <span class="token function">top</span>         Display the running processes of a container
+  unpause     Unpause all processes within one or <span class="token function">more</span> containers
+  update      Update configuration of one or <span class="token function">more</span> containers
+  version     Show the Docker version information
+  <span class="token function">wait</span>        Block <span class="token keyword">until</span> one or <span class="token function">more</span> containers stop, <span class="token keyword">then</span> print their <span class="token builtin class-name">exit</span> codes
+
+Run ‘docker COMMAND --help’ <span class="token keyword">for</span> <span class="token function">more</span> information on a command.
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment">#</span>
+</code></pre></div><div id="valine" class="valine"><hr style="border-top: 4px dashed #ddd"> <div id="vcomments"></div></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/fox-ahri/ahriblog/edit/master/docs/docker/Docker使用前提.md" target="_blank" rel="noopener noreferrer">编辑文档</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">最近更新:</span> <span class="time">1 分钟前</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docker/CentOS7安装.html" class="prev">CentOS7安装</a></span> <span class="next"><a href="/docker/Docker镜像命令.html">Docker镜像命令</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.12b15a81.js" defer></script><script src="/assets/js/2.4cad4d5d.js" defer></script><script src="/assets/js/13.e67d5511.js" defer></script><script src="/assets/js/6.6c97654b.js" defer></script><script src="/assets/js/4.ff301f7b.js" defer></script>
+  </body>
+</html>
