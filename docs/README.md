@@ -17,6 +17,10 @@ footer: MIT Licensed | Copyright © 2019 ahriknow.com
 
 <CategoryList />
 
+::: tip 今日语录
+**今天多学一点本事，明天就少说一句求人的话！**
+:::
+
 # 一级标题
 ## 二级标题
 ### 三级标题
