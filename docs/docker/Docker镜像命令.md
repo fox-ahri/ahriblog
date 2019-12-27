@@ -5,6 +5,9 @@ sidebarDepth: 3
 
 ## 本页目录
 [[toc]]
+::: tip
+#### 非 root 用户 请添加 sudo
+:::
 
 ## 镜像命令
 ### 查找镜像

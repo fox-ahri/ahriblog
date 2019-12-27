@@ -1,9 +1,13 @@
 ---
 title: CentOS7安装
+sidebarDepth: 3
 ---
 
 ## 本页目录
 [[toc]]
+::: tip
+#### 非 root 用户 请添加 sudo
+:::
 
 ## 官方文档
 [Docker 文档](https://docs.docker.com/)
@@ -12,10 +16,6 @@ title: CentOS7安装
 
 
 ## 安装 Docker-CE（社区版 免费）
-::: tip
-### 非 root 用户 请添加 sudo
-:::
-
 ### 卸载老版本的 Docker（未安装过忽略）
 ```sh
 yum remove docker \

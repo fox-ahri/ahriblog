@@ -5,8 +5,50 @@ sidebarDepth: 3
 
 ## 本页目录
 [[toc]]
+::: tip
+#### 非 root 用户 请添加 sudo
+:::
 
 ## 容器命令
+### 帮助
+```sh
+[root@localhost ~]# docker container --help
+
+Usage:  docker container COMMAND
+
+Manage containers
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker container COMMAND --help' for more information on a command.
+[root@localhost ~]#
+```
+
 ### 首先拉取 centos 镜像
 ```sh
 [root@localhost ~]# docker pull centos
@@ -23,7 +65,7 @@ centos              latest              0f3e07c0138f        2 months ago        
 ```
 
 ### 新建并启动容器
-`docker run [OPTIONS] IMAGENAME[:TAG]|IMAGEID [COMMAND] [ARG...]`
+`docker [container] run [OPTIONS] IMAGENAME[:TAG]|IMAGEID [COMMAND] [ARG...]`
 - --name="NAME" 为容器指定一个名字
 - -d 后台运行容器，并打印容器 ID
 - -i 以交互模式启动容器，通常与 `-t` 同时使用
@@ -45,37 +87,37 @@ bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  s
 ```
 #### 守护非交互模式启动 (容器没有前台应用会自动退出)
 ```sh
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 [root@localhost ~]# docker run -d centos
 ad7b31ca204a7201d8a671eefa3748440f8ad8beb095bfba5ac0db706e415498
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
 ad7b31ca204a        centos              "/bin/bash"         7 seconds ago       Exited (0) 6 seconds ago                       musing_allen
 [root@localhost ~]# docker rm ad7b31ca204a
 ad7b31ca204a
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 [root@localhost ~]#
 
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 [root@localhost ~]# docker run -d centos /bin/sh -c "while true;do echo hello ahri;sleep 2;done"
 fa750ca7fd8bb550bc0c860e98d617287b1fef1e00a529e8e049ee34f3754d05
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 fa750ca7fd8b        centos              "/bin/sh -c 'while t…"   4 seconds ago       Up 3 seconds                            reverent_kapitsa
 [root@localhost ~]#
 ```
 
 ### 列出容器
-`docker ps [OPTIONS]`
+`docker container ls [OPTIONS]`  `docker ps [OPTIONS]`
 - -a 查看所有容器(否则只查看正在运行的容器)
 - -l 查看上一个活动的容器
 - -n 查看指定个数的最近活动的容器
 - -q 只显示容器编号
 ```sh
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
 f088a82ba445        centos              "/bin/bash"         4 minutes ago       Up 4 minutes                                    containerName
 80be92c3b0fa        centos              "/bin/bash"         17 minutes ago      Exited (0) 17 minutes ago                       my-centos
@@ -87,7 +129,7 @@ f088a82ba445        centos              "/bin/bash"         4 minutes ago       
 ```sh
 [root@localhost ~]# docker start my-centos
 my-centos
-[root@localhost ~]# docker ps
+[root@localhost ~]# docker container ls
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 f088a82ba445        centos              "/bin/bash"         6 minutes ago       Up 6 minutes                            containerName
 80be92c3b0fa        centos              "/bin/bash"         19 minutes ago      Up 5 seconds                            my-centos
@@ -100,7 +142,7 @@ f088a82ba445        centos              "/bin/bash"         6 minutes ago       
 ```sh
 [root@localhost ~]# docker stop f088a82ba445
 f088a82ba445
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
 f088a82ba445        centos              "/bin/bash"         7 minutes ago       Exited (0) 4 seconds ago                       containerName
 80be92c3b0fa        centos              "/bin/bash"         20 minutes ago      Up About a minute                              my-centos
@@ -110,12 +152,12 @@ f088a82ba445        centos              "/bin/bash"         7 minutes ago       
 ### 重启容器
 `docker restart Name|ID`
 ```sh
-[root@localhost ~]# docker ps
+[root@localhost ~]# docker container ls
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 80be92c3b0fa        centos              "/bin/bash"         21 minutes ago      Up 3 minutes                            my-centos
 [root@localhost ~]# docker restart my-centos
 my-centos
-[root@localhost ~]# docker ps
+[root@localhost ~]# docker container ls
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 80be92c3b0fa        centos              "/bin/bash"         21 minutes ago      Up 2 seconds                            my-centos
 [root@localhost ~]#
@@ -124,15 +166,15 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 ### 删除容器
 ```
 容器停止才能删除
-docker rm [OPTIONS] \
+docker [container] rm [OPTIONS] \
 [CONTAINER_1_NAME|CONTAINER_1_ID] \
 [CONTAINER_2_NAME|CONTAINER_2_ID]
 ```
 - -f 强制删除容器
 
-删除所有容器 `docker rm $(docker ps -qa)`
+删除所有容器 `docker rm $(docker container ls -qa)`
 ```sh
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
 f088a82ba445        centos              "/bin/bash"         13 minutes ago      Exited (0) 5 minutes ago                       containerName
 80be92c3b0fa        centos              "/bin/bash"         26 minutes ago      Up 4 minutes                                   my-centos
@@ -140,18 +182,18 @@ f088a82ba445        centos              "/bin/bash"         13 minutes ago      
 Error response from daemon: You cannot remove a running container 80be92c3b0fab4396c33f9e10b55a01b550c1317ca7534d3bd1714bc6b10983f. Stop the container before attempting removal or force remove
 [root@localhost ~]# docker rm f088a82ba445
 f088a82ba445
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 80be92c3b0fa        centos              "/bin/bash"         26 minutes ago      Up 4 minutes                            my-centos
 [root@localhost ~]# docker rm -f 80be92c3b0fa
 80be92c3b0fa
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 [root@localhost ~]#
 ```
 
 ### 查看容器日志
-`docker logs [OPTIONS] CONTAINER_NAME|CONTAINER_ID`
+`docker [container] logs [OPTIONS] CONTAINER_NAME|CONTAINER_ID`
 - -f 跟踪实时日志
 - -t 显示时间戳
 - --tail 显示最新的指定行数
@@ -167,11 +209,11 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 ```
 
 ### 查看容器内进程
-`docker top CONTAINER_NAME|CONTAINER_ID`
+`docker [container] top CONTAINER_NAME|CONTAINER_ID`
 ```sh
 [root@localhost ~]# docker run -d centos /bin/sh -c "while true;do echo hello ahri;sleep 2;done"
 7bc64e5a42f8334f3c6198c173ae5b4607aa13ef1ccbaa0e8f17fe42c0446d2d
-[root@localhost ~]# docker ps
+[root@localhost ~]# docker container ls
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 7bc64e5a42f8        centos              "/bin/sh -c 'while t…"   9 seconds ago       Up 8 seconds                            elated_feynman
 [root@localhost ~]# docker top 7bc64e5a42f8
@@ -182,7 +224,7 @@ root                60474               60425               0                   
 ```
 
 ### 查看容器内细节
-`docker inspect CONTAINER_NAME|CONTAINER_ID`
+`docker [container] inspect CONTAINER_NAME|CONTAINER_ID`
 ```sh
 [root@localhost ~]# docker inspect 7bc64e5a42f8
 [
@@ -396,8 +438,8 @@ root                60474               60425               0                   
 ```
 
 ### 进入正在运行的容器并以命令行交互
-`docker attach CONTAINER_NAME|CONTAINER_ID` 直接进入容器日东的终端
-`docker exec -it CONTAINER_NAME|CONTAINER_ID bashShell` 在容器内新建终端并进入
+`docker [container] attach CONTAINER_NAME|CONTAINER_ID` 直接进入容器日东的终端
+`docker [container] exec -it CONTAINER_NAME|CONTAINER_ID bashShell` 在容器内新建终端并进入
 ```sh
 [root@localhost ~]# docker run -ti centos
 [root@091a4b9ad553 /]# ls -l /tmp
@@ -408,7 +450,7 @@ total 8
 
 # ctrl + p + q
 
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 091a4b9ad553        centos              "/bin/bash"         57 seconds ago      Up 56 seconds                           beautiful_poitras
 [root@localhost ~]# docker attach 091a4b9ad553
@@ -420,7 +462,7 @@ total 8
 
 # ctrl + p + q
 
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 091a4b9ad553        centos              "/bin/bash"         2 minutes ago       Up 2 minutes                            beautiful_poitras
 [root@localhost ~]# docker exec -it 091a4b9ad553 /bin/bash
@@ -433,9 +475,9 @@ total 8
 ```
 
 ### 直接执行容器里的命令
-`docker exec -it CONTAINER_NAME|CONTAINER_ID COMMAND`
+`docker [container] exec -it CONTAINER_NAME|CONTAINER_ID COMMAND`
 ```sh
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 091a4b9ad553        centos              "/bin/bash"         5 minutes ago       Up 5 minutes                            beautiful_poitras
 [root@localhost ~]# docker exec -t 091a4b9ad553 ls -l /tmp
@@ -447,9 +489,9 @@ total 8
 
 ### 拷贝文件
 #### 宿主机 -> 容器
-`docker cp -it CONTAINER_NAME|CONTAINER_ID COMMAND`
+`docker [container] cp -it CONTAINER_NAME|CONTAINER_ID COMMAND`
 ```sh
-[root@localhost ~]# docker ps -a
+[root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 091a4b9ad553        centos              "/bin/bash"         6 minutes ago       Up 6 minutes                            beautiful_poitras
 [root@localhost ~]# docker exec -t 091a4b9ad553 ls -l /tmp
@@ -471,7 +513,7 @@ hello, ahri!
 [root@localhost ~]#
 ```
 #### 容器 -> 宿主机
-`docker cp -it CONTAINER_NAME|CONTAINER_ID COMMAND`
+`docker [container] cp -it CONTAINER_NAME|CONTAINER_ID COMMAND`
 ```sh
 [root@localhost ~]# docker cp 091a4b9ad553:/tmp/ahri.txt .
 [root@localhost ~]# ls
