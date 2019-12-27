@@ -480,7 +480,7 @@ total 8
 [root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 091a4b9ad553        centos              "/bin/bash"         5 minutes ago       Up 5 minutes                            beautiful_poitras
-[root@localhost ~]# docker exec -t 091a4b9ad553 ls -l /tmp
+[root@localhost ~]# docker container exec -t 091a4b9ad553 ls -l /tmp
 total 8
 -rwx------. 1 root root 1379 Sep 27 17:13 ks-script-0n44nrd1
 -rwx------. 1 root root  671 Sep 27 17:13 ks-script-w6m6m_20
