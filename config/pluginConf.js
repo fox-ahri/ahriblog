@@ -25,8 +25,9 @@ module.exports = [
         {
             options: {
                 margin: 16,
-                background: "#ddd"
+                background: '#ddd'
             }
         }
-    ]
+    ],
+    ['vuepress-plugin-container']
 ]

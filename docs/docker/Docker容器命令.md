@@ -225,6 +225,7 @@ root                60474               60425               0                   
 
 ### 查看容器内细节
 `docker [container] inspect CONTAINER_NAME|CONTAINER_ID`
+
 ```sh
 [root@localhost ~]# docker inspect 7bc64e5a42f8
 [

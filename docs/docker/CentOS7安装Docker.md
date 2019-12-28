@@ -1,5 +1,5 @@
 ---
-title: CentOS7安装
+title: CentOS7安装Docker
 sidebarDepth: 3
 ---
 
