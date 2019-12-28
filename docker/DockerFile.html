@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>DockerFile | 狸知</title>
+    <meta name="description" content="Ahriblog ahriknow blog vue python java">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+    
+    <link rel="preload" href="/assets/css/0.styles.4b83d720.css" as="style"><link rel="preload" href="/assets/js/app.639fb992.js" as="script"><link rel="preload" href="/assets/js/2.ab27360f.js" as="script"><link rel="preload" href="/assets/js/15.1b222eae.js" as="script"><link rel="preload" href="/assets/js/7.334e8549.js" as="script"><link rel="preload" href="/assets/js/4.7c749548.js" as="script"><link rel="prefetch" href="/assets/js/10.3f5f0b53.js"><link rel="prefetch" href="/assets/js/11.aafa0ed8.js"><link rel="prefetch" href="/assets/js/12.4d9b9c68.js"><link rel="prefetch" href="/assets/js/13.37921a12.js"><link rel="prefetch" href="/assets/js/14.ea5d16a1.js"><link rel="prefetch" href="/assets/js/16.60483bfe.js"><link rel="prefetch" href="/assets/js/17.2a8ee1ab.js"><link rel="prefetch" href="/assets/js/18.c3770b77.js"><link rel="prefetch" href="/assets/js/19.1c26aa25.js"><link rel="prefetch" href="/assets/js/20.cbdbc3d1.js"><link rel="prefetch" href="/assets/js/21.00fea246.js"><link rel="prefetch" href="/assets/js/22.e969902d.js"><link rel="prefetch" href="/assets/js/23.a2924b0d.js"><link rel="prefetch" href="/assets/js/24.e79a2da2.js"><link rel="prefetch" href="/assets/js/25.7401b034.js"><link rel="prefetch" href="/assets/js/26.480c12e2.js"><link rel="prefetch" href="/assets/js/3.0b306b57.js"><link rel="prefetch" href="/assets/js/5.bc39b3b7.js"><link rel="prefetch" href="/assets/js/6.99b7b4e4.js"><link rel="prefetch" href="/assets/js/8.ad45a243.js"><link rel="prefetch" href="/assets/js/9.a1c97e1e.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.4b83d720.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">狸知</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><div class="nav-item"><a href="https://admin.ahriknow.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Ahriknow
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/fox-ahri/ahriblog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><div class="nav-item"><a href="https://admin.ahriknow.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Ahriknow
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/fox-ahri/ahriblog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Docker (容器技术)</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docker/前世今生.html" class="sidebar-link">前世今生</a></li><li><a href="/docker/CentOS7安装Docker.html" class="sidebar-link">CentOS7安装Docker</a></li><li><a href="/docker/Docker使用前提.html" class="sidebar-link">Docker使用前提</a></li><li><a href="/docker/Docker镜像命令.html" class="sidebar-link">Docker镜像命令</a></li><li><a href="/docker/Docker容器命令.html" class="sidebar-link">Docker容器命令</a></li><li><a href="/docker/Docker网络配置.html" class="sidebar-link">Docker网络配置</a></li><li><a href="/docker/Docker数据卷.html" class="sidebar-link">Docker数据卷</a></li><li><a href="/docker/镜像制作.html" class="sidebar-link">镜像制作</a></li><li><a href="/docker/DockerFile.html" class="active sidebar-link">DockerFile</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docker/DockerFile.html#本页目录" class="sidebar-link">本页目录</a></li><li class="sidebar-sub-header"><a href="/docker/DockerFile.html#dockerfile-命令" class="sidebar-link">DockerFile 命令</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docker/DockerFile.html#基础命令" class="sidebar-link">基础命令</a></li><li class="sidebar-sub-header"><a href="/docker/DockerFile.html#构建-nginx-镜像" class="sidebar-link">构建 nginx 镜像</a></li></ul></li></ul></li><li><a href="/docker/待续.html" class="sidebar-link">待续...</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="本页目录">本页目录</h2> <p></p><div class="table-of-contents"><ul><li><a href="#本页目录">本页目录</a></li><li><a href="#dockerfile-命令">DockerFile 命令</a><ul><li><a href="#基础命令">基础命令</a></li><li><a href="#构建-nginx-镜像">构建 nginx 镜像</a></li></ul></li></ul></div><p></p> <div class="custom-block tip"><p class="custom-block-title">TIP</p> <h4 id="非-root-用户-请添加-sudo">非 root 用户 请添加 sudo</h4></div> <h2 id="dockerfile-命令">DockerFile 命令</h2> <h3 id="基础命令">基础命令</h3> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">Syntax</span><span class="token punctuation">:</span>
+    <span class="token key atrule">FROM</span><span class="token punctuation">:</span> <span class="token comment"># 基础镜像</span>
+        centos<span class="token punctuation">:</span>7.7.1908
+        centos@8f2c78ca3141
+    <span class="token key atrule">MAINTAINER</span><span class="token punctuation">:</span> <span class="token comment"># 维护者信息</span>
+        ahri ahriknow@gmail.com
+    <span class="token key atrule">WORKDIR</span><span class="token punctuation">:</span> <span class="token comment"># 构建镜像的工作目录，不存在自动创建</span>
+        /usr/local
+        workdir <span class="token comment"># 最终工作目录是 /usr/local/workdir</span>
+    <span class="token key atrule">RUN</span><span class="token punctuation">:</span> <span class="token comment"># 创建镜像时执行指令</span>
+        yum update <span class="token punctuation">-</span>y &amp;&amp; yum install <span class="token punctuation">-</span>y redis
+        <span class="token punctuation">[</span><span class="token string">&quot;yum&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;install&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;-y&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;nginx&quot;</span><span class="token punctuation">]</span>
+    <span class="token key atrule">COPY</span><span class="token punctuation">:</span> <span class="token comment"># 复制主机文件到镜像内(目的路径不存在会自动创建)</span>
+        file.txt /opt/files  <span class="token comment"># 源文件必须和 dockerfile 同目录</span>
+                             <span class="token comment"># 目标目录必须绝对路径</span>
+    <span class="token key atrule">ADD</span><span class="token punctuation">:</span> <span class="token comment"># 复制主机文件到镜像内(目的路径不存在会自动创建)</span>
+        file.tar.gz /opt/files  <span class="token comment"># 源文件必须和 dockerfile 同目录</span>
+                                <span class="token comment"># 目标目录必须绝对路径</span>
+                                <span class="token comment"># 会自动解压提取</span>
+    <span class="token key atrule">EXPOSE</span><span class="token punctuation">:</span> <span class="token comment"># 暴露端口，机端口映射时，会自动随机映射 EXPOSE 的端口</span>
+        80
+    <span class="token key atrule">ENV</span><span class="token punctuation">:</span> <span class="token comment"># 添加环境变量</span>
+        PATH /usr/local/nginx/sbin<span class="token punctuation">:</span>$PATH
+    <span class="token key atrule">USER</span><span class="token punctuation">:</span> 指定该镜像的执行户去
+        ahri
+    <span class="token key atrule">VOLUME</span><span class="token punctuation">:</span> <span class="token comment"># 向容器添加数据卷</span>
+        /opt/data /opt/data
+    <span class="token key atrule">CMD</span><span class="token punctuation">:</span> <span class="token comment"># 容器启动时执行指令, 会被创建容器的指令覆盖</span>
+        <span class="token punctuation">[</span><span class="token string">'/usr/sbin/sshd'</span><span class="token punctuation">,</span> <span class="token string">'-D'</span><span class="token punctuation">]</span>
+    <span class="token key atrule">ENTRYPOINT</span><span class="token punctuation">:</span>  <span class="token comment"># 容器启动时执行指令, 不会被覆盖</span>
+        <span class="token punctuation">[</span><span class="token string">'/usr/sbin/sshd'</span><span class="token punctuation">,</span> <span class="token string">'-D'</span><span class="token punctuation">]</span>
+</code></pre></div><h3 id="构建-nginx-镜像">构建 nginx 镜像</h3> <div class="language-dockerfile extra-class"><pre class="language-text"><code>FROM centos:7.7.1908
+
+# 将 nginx 包导入 /usr/local/src 并解压
+ADD nginx-1.17.7.tar.gz /usr/local/src
+
+# 安装 工具、依赖
+RUN yum install -y gcc gcc-c++ glibc make autoconf openssl openssl-devel 
+RUN yum install -y libxslt-devel -y gd gd-devel GeoIP GeoIP-devel pcre pcre-devel
+
+# 创建用户
+RUN useradd -M -s /sbin/nologin nginx
+
+# 进入 nginx 目录
+WORKDIR /usr/local/src/nginx-1.17.7
+
+# 编译 安装 nginx
+RUN ./configure --user=nginx --group=nginx --prefix=/usr/local/nginx --with-file-aio --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_image_filter_module --with-http_geoip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_auth_request_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_stub_status_module &amp;&amp; make &amp;&amp; make install
+
+# 映射 80 端口。
+EXPOSE 80
+
+# 添加 环境变量
+ENV PATH /usr/local/nginx/sbin:$PATH
+
+# 当定义了 ENTRYPOINT 以后，CMD 只能够作为参数进行传递
+ENTRYPOINT [&quot;nginx&quot;]
+
+# 在容器执行：nginx -g &quot;daemon off;&quot;
+CMD [&quot;-g&quot;,&quot;daemon off;&quot;]
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost dockerfile<span class="token punctuation">]</span><span class="token comment"># tree .</span>
+<span class="token builtin class-name">.</span>
+├── Dockerfile
+└── nginx-1.17.7.tar.gz
+
+<span class="token number">0</span> directories, <span class="token number">2</span> files
+<span class="token punctuation">[</span>root@localhost dockerfile<span class="token punctuation">]</span><span class="token comment"># docker image build -t &quot;ahri/my_nginx:1.0&quot; ./</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+Successfully built 10a24d50e67d
+Successfully tagged ahri/my_nginx:1.0
+<span class="token punctuation">[</span>root@localhost dockerfile<span class="token punctuation">]</span><span class="token comment"># docker image ls</span>
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ahri/my_nginx       <span class="token number">1.0</span>                 10a24d50e67d        <span class="token number">23</span> seconds ago      592MB
+nginx               latest              231d40e811cd        <span class="token number">5</span> weeks ago         126MB
+centos              <span class="token number">7.7</span>.1908            08d05d1d5859        <span class="token number">6</span> weeks ago         204MB
+<span class="token punctuation">[</span>root@localhost dockerfile<span class="token punctuation">]</span><span class="token comment"># docker container ls -a</span>
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
+957361b07fa4        08d05d1d5859        <span class="token string">&quot;/bin/sh -c 'rpm -Uv…&quot;</span>   <span class="token number">23</span> minutes ago      Exited <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token number">21</span> minutes ago                       sharp_germain
+d04897602d7d        nginx               <span class="token string">&quot;nginx -g 'daemon of…&quot;</span>   <span class="token number">45</span> minutes ago      Up <span class="token number">40</span> minutes               <span class="token number">80</span>/tcp              practical_fermat
+<span class="token punctuation">[</span>root@localhost dockerfile<span class="token punctuation">]</span><span class="token comment"># docker run -d ahri/my_nginx:1.0</span>
+9df625f2057b54fe5881637665d872def47655621d6a4599fe120a07e38514a4
+<span class="token punctuation">[</span>root@localhost dockerfile<span class="token punctuation">]</span><span class="token comment"># docker ps -a</span>
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+9df625f2057b        ahri/my_nginx:1.0   <span class="token string">&quot;nginx -g 'daemon of…&quot;</span>   <span class="token number">5</span> seconds ago       Up <span class="token number">4</span> seconds        <span class="token number">80</span>/tcp              determined_tereshkova
+<span class="token punctuation">[</span>root@localhost dockerfile<span class="token punctuation">]</span><span class="token comment"># docker container inspect 9df625f2057b | grep IPAddress</span>
+            <span class="token string">&quot;SecondaryIPAddresses&quot;</span><span class="token builtin class-name">:</span> null,
+            <span class="token string">&quot;IPAddress&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;172.17.0.2&quot;</span>,
+                    <span class="token string">&quot;IPAddress&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;172.17.0.2&quot;</span>,
+<span class="token punctuation">[</span>root@localhost dockerfile<span class="token punctuation">]</span><span class="token comment"># curl 172.17.0.2</span>
+<span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>html<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>head<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>title<span class="token operator">&gt;</span>Welcome to nginx<span class="token operator">!</span><span class="token operator">&lt;</span>/title<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>style<span class="token operator">&gt;</span>
+    body <span class="token punctuation">{</span>
+        width: 35em<span class="token punctuation">;</span>
+        margin: <span class="token number">0</span> auto<span class="token punctuation">;</span>
+        font-family: Tahoma, Verdana, Arial, sans-serif<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token operator">&lt;</span>/style<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>/head<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>h<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>Welcome to nginx<span class="token operator">!</span><span class="token operator">&lt;</span>/h<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>
+<span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.<span class="token operator">&lt;</span>/p<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>For online documentation and support please refer to
+<span class="token operator">&lt;</span>a <span class="token assign-left variable">href</span><span class="token operator">=</span><span class="token string">&quot;http://nginx.org/&quot;</span><span class="token operator">&gt;</span>nginx.org<span class="token operator">&lt;</span>/a<span class="token operator">&gt;</span>.<span class="token operator">&lt;</span>br/<span class="token operator">&gt;</span>
+Commercial support is available at
+<span class="token operator">&lt;</span>a <span class="token assign-left variable">href</span><span class="token operator">=</span><span class="token string">&quot;http://nginx.com/&quot;</span><span class="token operator">&gt;</span>nginx.com<span class="token operator">&lt;</span>/a<span class="token operator">&gt;</span>.<span class="token operator">&lt;</span>/p<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>p<span class="token operator">&gt;</span><span class="token operator">&lt;</span>em<span class="token operator">&gt;</span>Thank you <span class="token keyword">for</span> using nginx.<span class="token operator">&lt;</span>/em<span class="token operator">&gt;</span><span class="token operator">&lt;</span>/p<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>/body<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>/html<span class="token operator">&gt;</span>
+<span class="token punctuation">[</span>root@localhost dockerfile<span class="token punctuation">]</span><span class="token comment">#</span>
+
+</code></pre></div><div id="valine" class="valine"><hr style="border-top: 4px dashed #ddd"> <div id="vcomments"></div></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/fox-ahri/ahriblog/edit/master/docs/docker/DockerFile.md" target="_blank" rel="noopener noreferrer">编辑文档</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">最近更新:</span> <span class="time">1 分钟前</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docker/镜像制作.html" class="prev">镜像制作</a></span> <span class="next"><a href="/docker/待续.html">待续...</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.639fb992.js" defer></script><script src="/assets/js/2.ab27360f.js" defer></script><script src="/assets/js/15.1b222eae.js" defer></script><script src="/assets/js/7.334e8549.js" defer></script><script src="/assets/js/4.7c749548.js" defer></script>
+  </body>
+</html>
