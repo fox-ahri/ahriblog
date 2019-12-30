@@ -1,3 +1,3 @@
 set -e
 cd docs/.vuepress/dist
-echo 'blog.ahriknow.com' > CNAME
+echo 'docs.ahriknow.com' > CNAME
