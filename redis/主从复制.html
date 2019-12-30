@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>主从复制 | 狸知</title>
+    <meta name="description" content="Ahriblog ahriknow blog vue python java">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+    
+    <link rel="preload" href="/assets/css/0.styles.d8d244c0.css" as="style"><link rel="preload" href="/assets/js/app.bac83035.js" as="script"><link rel="preload" href="/assets/js/2.ab27360f.js" as="script"><link rel="preload" href="/assets/js/27.6e515c75.js" as="script"><link rel="preload" href="/assets/js/7.334e8549.js" as="script"><link rel="preload" href="/assets/js/4.7c749548.js" as="script"><link rel="prefetch" href="/assets/js/10.3f5f0b53.js"><link rel="prefetch" href="/assets/js/11.aafa0ed8.js"><link rel="prefetch" href="/assets/js/12.4d9b9c68.js"><link rel="prefetch" href="/assets/js/13.37921a12.js"><link rel="prefetch" href="/assets/js/14.ea5d16a1.js"><link rel="prefetch" href="/assets/js/15.1b222eae.js"><link rel="prefetch" href="/assets/js/16.60483bfe.js"><link rel="prefetch" href="/assets/js/17.2a8ee1ab.js"><link rel="prefetch" href="/assets/js/18.c3770b77.js"><link rel="prefetch" href="/assets/js/19.0ac8ca5a.js"><link rel="prefetch" href="/assets/js/20.cbdbc3d1.js"><link rel="prefetch" href="/assets/js/21.00fea246.js"><link rel="prefetch" href="/assets/js/22.e969902d.js"><link rel="prefetch" href="/assets/js/23.a2924b0d.js"><link rel="prefetch" href="/assets/js/24.e79a2da2.js"><link rel="prefetch" href="/assets/js/25.7401b034.js"><link rel="prefetch" href="/assets/js/26.38edd9f0.js"><link rel="prefetch" href="/assets/js/28.4e987543.js"><link rel="prefetch" href="/assets/js/29.6a4bac99.js"><link rel="prefetch" href="/assets/js/3.d381178a.js"><link rel="prefetch" href="/assets/js/5.181f36e0.js"><link rel="prefetch" href="/assets/js/6.99b7b4e4.js"><link rel="prefetch" href="/assets/js/8.ad45a243.js"><link rel="prefetch" href="/assets/js/9.a1c97e1e.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.d8d244c0.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">狸知</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><div class="nav-item"><a href="https://admin.ahriknow.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Ahriknow
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/fox-ahri/ahriblog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><div class="nav-item"><a href="https://admin.ahriknow.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Ahriknow
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/fox-ahri/ahriblog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Redis 集群</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/redis/主从复制.html" class="active sidebar-link">主从复制</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/redis/主从复制.html#本页目录" class="sidebar-link">本页目录</a></li><li class="sidebar-sub-header"><a href="/redis/主从复制.html#docker安装-redis" class="sidebar-link">Docker安装 redis</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/redis/主从复制.html#创建容器" class="sidebar-link">创建容器</a></li><li class="sidebar-sub-header"><a href="/redis/主从复制.html#设置主从" class="sidebar-link">设置主从</a></li><li class="sidebar-sub-header"><a href="/redis/主从复制.html#读写测试" class="sidebar-link">读写测试</a></li></ul></li><li class="sidebar-sub-header"><a href="/redis/主从复制.html#手动安装-redis" class="sidebar-link">手动安装 redis</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/redis/主从复制.html#安装编译工具" class="sidebar-link">安装编译工具</a></li><li class="sidebar-sub-header"><a href="/redis/主从复制.html#编译-redis" class="sidebar-link">编译 redis</a></li><li class="sidebar-sub-header"><a href="/redis/主从复制.html#配置主从" class="sidebar-link">配置主从</a></li><li class="sidebar-sub-header"><a href="/redis/主从复制.html#启动主从" class="sidebar-link">启动主从</a></li><li class="sidebar-sub-header"><a href="/redis/主从复制.html#读写测试-2" class="sidebar-link">读写测试</a></li></ul></li></ul></li><li><a href="/redis/待续.html" class="sidebar-link">待续...</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="本页目录">本页目录</h2> <p></p><div class="table-of-contents"><ul><li><a href="#本页目录">本页目录</a></li><li><a href="#docker安装-redis">Docker安装 redis</a><ul><li><a href="#创建容器">创建容器</a></li><li><a href="#设置主从">设置主从</a></li><li><a href="#读写测试">读写测试</a></li></ul></li><li><a href="#手动安装-redis">手动安装 redis</a><ul><li><a href="#安装编译工具">安装编译工具</a></li><li><a href="#编译-redis">编译 redis</a></li><li><a href="#配置主从">配置主从</a></li><li><a href="#启动主从">启动主从</a></li><li><a href="#读写测试">读写测试</a></li></ul></li></ul></div><p></p> <div class="custom-block tip"><p class="custom-block-title">TIP</p> <h4 id="非-root-用户-请添加-sudo">非 root 用户 请添加 sudo</h4></div> <h2 id="docker安装-redis">Docker安装 redis</h2> <h3 id="创建容器">创建容器</h3> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># docker pull redis</span>
+Using default tag: latest
+latest: Pulling from library/redis
+8ec398bc0356: Pull complete
+da01136793fa: Pull complete
+cf1486a2c0b8: Pull complete
+188200a8c82e: Pull complete
+9391ca24f5d0: Pull complete
+6ed21f46fa2d: Pull complete
+Digest: sha256:21b037b4f6964887bb12fd8d72d06c7ab1f231a58781b6ca2ceee0febfeb0d36
+Status: Downloaded newer image <span class="token keyword">for</span> redis:latest
+docker.io/library/redis:latest
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment">#</span>
+
+
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># docker container run --name master -d redis</span>
+3582dc6990ba2467a02438b8be0fc5356449a35eeb23ce7ee27788aef1294292
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># docker container run --name slave -d redis</span>
+1e459f9cf6ff1b489adaa7851b11a55ba24d2c9ee4578a22d5f06326b91856e9
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># docker container ls -a</span>
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+1e459f9cf6ff        redis               <span class="token string">&quot;docker-entrypoint.s…&quot;</span>   <span class="token number">6</span> seconds ago       Up <span class="token number">6</span> seconds        <span class="token number">6379</span>/tcp            slave
+3582dc6990ba        redis               <span class="token string">&quot;docker-entrypoint.s…&quot;</span>   <span class="token number">20</span> seconds ago      Up <span class="token number">19</span> seconds       <span class="token number">6379</span>/tcp            master
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment">#</span>
+</code></pre></div><h3 id="设置主从">设置主从</h3> <ul><li>主 <code>172.17.0.2</code></li> <li>从 <code>172.17.0.3</code></li></ul> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># docker container exec -it 1e459f9cf6ff redis-cli</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> info replication
+<span class="token comment"># Replication</span>
+role:master
+connected_slaves:0
+master_replid:5b4a945906461110dfc5e590fce612aca46e0ac2
+master_replid2:0000000000000000000000000000000000000000
+master_repl_offset:0
+second_repl_offset:-1
+repl_backlog_active:0
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:0
+repl_backlog_histlen:0
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> SLAVEOF <span class="token number">172.17</span>.0.2 <span class="token number">6379</span>
+OK
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> info replication
+<span class="token comment"># Replication</span>
+role:slave
+master_host:172.17.0.2
+master_port:6379
+master_link_status:up
+master_last_io_seconds_ago:1
+master_sync_in_progress:0
+slave_repl_offset:0
+slave_priority:100
+slave_read_only:1
+connected_slaves:0
+master_replid:b9778c8f67294aa34a9793fcef3c91e4d01fb9c3
+master_replid2:0000000000000000000000000000000000000000
+master_repl_offset:0
+second_repl_offset:-1
+repl_backlog_active:1
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:1
+repl_backlog_histlen:0
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> quit
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment">#</span>
+</code></pre></div><h3 id="读写测试">读写测试</h3> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># docker container exec -it 3582dc6990ba redis-cli</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> keys *
+<span class="token punctuation">(</span>empty list or <span class="token builtin class-name">set</span><span class="token punctuation">)</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> <span class="token builtin class-name">set</span> hello ahri
+OK
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> keys *
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;hello&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> get hello
+<span class="token string">&quot;ahri&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> quit
+
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># docker container exec -it 1e459f9cf6ff redis-cli</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> keys *
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;hello&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> get hello
+<span class="token string">&quot;ahri&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span>
+</code></pre></div><h2 id="手动安装-redis">手动安装 redis</h2> <h3 id="安装编译工具">安装编译工具</h3> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost redis<span class="token punctuation">]</span><span class="token comment"># yum install -y gcc gcc-c++ automake autoconf libtool make</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+Installed:
+  autoconf.noarch <span class="token number">0</span>:2.69-11.el7           automake.noarch <span class="token number">0</span>:1.13.4-3.el7           libtool.x86_64 <span class="token number">0</span>:2.4.2-22.el7_3           make.x86_64 <span class="token number">1</span>:3.82-24.el7
+
+Dependency Installed:
+  groff-base.x86_64 <span class="token number">0</span>:1.22.2-8.el7                    m4.x86_64 <span class="token number">0</span>:1.4.16-10.el7                           perl.x86_64 <span class="token number">4</span>:5.16.3-294.el7_6
+  perl-Carp.noarch <span class="token number">0</span>:1.26-244.el7                     perl-Data-Dumper.x86_64 <span class="token number">0</span>:2.145-3.el7               perl-Encode.x86_64 <span class="token number">0</span>:2.51-7.el7
+  perl-Exporter.noarch <span class="token number">0</span>:5.68-3.el7                   perl-File-Path.noarch <span class="token number">0</span>:2.09-2.el7                  perl-File-Temp.noarch <span class="token number">0</span>:0.23.01-3.el7
+  perl-Filter.x86_64 <span class="token number">0</span>:1.49-3.el7                     perl-Getopt-Long.noarch <span class="token number">0</span>:2.40-3.el7                perl-HTTP-Tiny.noarch <span class="token number">0</span>:0.033-3.el7
+  perl-PathTools.x86_64 <span class="token number">0</span>:3.40-5.el7                  perl-Pod-Escapes.noarch <span class="token number">1</span>:1.04-294.el7_6            perl-Pod-Perldoc.noarch <span class="token number">0</span>:3.20-4.el7
+  perl-Pod-Simple.noarch <span class="token number">1</span>:3.28-4.el7                 perl-Pod-Usage.noarch <span class="token number">0</span>:1.63-3.el7                  perl-Scalar-List-Utils.x86_64 <span class="token number">0</span>:1.27-248.el7
+  perl-Socket.x86_64 <span class="token number">0</span>:2.010-4.el7                    perl-Storable.x86_64 <span class="token number">0</span>:2.45-3.el7                   perl-Test-Harness.noarch <span class="token number">0</span>:3.28-3.el7
+  perl-Text-ParseWords.noarch <span class="token number">0</span>:3.29-4.el7            perl-Thread-Queue.noarch <span class="token number">0</span>:3.02-2.el7               perl-Time-HiRes.x86_64 <span class="token number">4</span>:1.9725-3.el7
+  perl-Time-Local.noarch <span class="token number">0</span>:1.2300-2.el7               perl-constant.noarch <span class="token number">0</span>:1.27-2.el7                   perl-libs.x86_64 <span class="token number">4</span>:5.16.3-294.el7_6
+  perl-macros.x86_64 <span class="token number">4</span>:5.16.3-294.el7_6               perl-parent.noarch <span class="token number">1</span>:0.225-244.el7                  perl-podlators.noarch <span class="token number">0</span>:2.5.1-3.el7
+  perl-threads.x86_64 <span class="token number">0</span>:1.87-4.el7                    perl-threads-shared.x86_64 <span class="token number">0</span>:1.43-6.el7
+
+Complete<span class="token operator">!</span>
+<span class="token punctuation">[</span>root@localhost redis<span class="token punctuation">]</span><span class="token comment"># tar -zxvf redis-5.0.7.tar.gz</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span class="token punctuation">[</span>root@localhost redis<span class="token punctuation">]</span><span class="token comment"># cd redis-5.0.7</span>
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># ls</span>
+00-RELEASENOTES  CONTRIBUTING  INSTALL    Makefile   deps        runtest          runtest-moduleapi  sentinel.conf  tests
+BUGS             COPYING       MANIFESTO  README.md  redis.conf  runtest-cluster  runtest-sentinel   src            utils
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># ls ./src/</span>
+Makefile     atomicvar.h  db.c          geohash.c         listpack_malloc.h  networking.c  rdb.c              scripting.c     solarisfixes.h  util.c
+adlist.c     bio.c        debug.c       geohash.h         localtime.c        notify.c      rdb.h              sds.c           sort.c          util.h
+adlist.h     bio.h        debugmacro.h  geohash_helper.c  lolwut.c           object.c      redis-benchmark.c  sds.h           sparkline.c     valgrind.sup
+ae.c         bitops.c     defrag.c      geohash_helper.h  lolwut5.c          pqsort.c      redis-check-aof.c  sdsalloc.h      sparkline.h     version.h
+ae.h         blocked.c    dict.c        help.h            lzf.h              pqsort.h      redis-check-rdb.c  sentinel.c      stream.h        ziplist.c
+ae_epoll.c   childinfo.c  dict.h        hyperloglog.c     lzfP.h             pubsub.c      redis-cli.c        server.c        syncio.c        ziplist.h
+ae_evport.c  cluster.c    endianconv.c  intset.c          lzf_c.c            quicklist.c   redis-trib.rb      server.h        t_hash.c        zipmap.c
+ae_kqueue.c  cluster.h    endianconv.h  intset.h          lzf_d.c            quicklist.h   redisassert.h      setproctitle.c  t_list.c        zipmap.h
+ae_select.c  config.c     evict.c       latency.c         memtest.c          rand.c        redismodule.h      sha1.c          t_set.c         zmalloc.c
+anet.c       config.h     expire.c      latency.h         mkreleasehdr.sh    rand.h        release.c          sha1.h          t_stream.c      zmalloc.h
+anet.h       crc16.c      fmacros.h     lazyfree.c        module.c           rax.c         replication.c      siphash.c       t_string.c
+aof.c        crc64.c      geo.c         listpack.c        modules            rax.h         rio.c              slowlog.c       t_zset.c
+asciilogo.h  crc64.h      geo.h         listpack.h        multi.c            rax_malloc.h  rio.h              slowlog.h       testhelp.h
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment">#</span>
+</code></pre></div><h3 id="编译-redis">编译 redis</h3> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># make</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># ls ./src/</span>
+Makefile     blocked.c     dict.h            intset.h           memtest.c        rand.h             redis-trib.rb   setproctitle.o  t_set.o
+adlist.c     blocked.o     dict.o            intset.o           memtest.o        rand.o             redisassert.h   sha1.c          t_stream.c
+adlist.h     childinfo.c   endianconv.c      latency.c          mkreleasehdr.sh  rax.c              redismodule.h   sha1.h          t_stream.o
+adlist.o     childinfo.o   endianconv.h      latency.h          module.c         rax.h              release.c       sha1.o          t_string.c
+ae.c         cluster.c     endianconv.o      latency.o          module.o         rax.o              release.h       siphash.c       t_string.o
+ae.h         cluster.h     evict.c           lazyfree.c         modules          rax_malloc.h       release.o       siphash.o       t_zset.c
+ae.o         cluster.o     evict.o           lazyfree.o         multi.c          rdb.c              replication.c   slowlog.c       t_zset.o
+ae_epoll.c   config.c      expire.c          listpack.c         multi.o          rdb.h              replication.o   slowlog.h       testhelp.h
+ae_evport.c  config.h      expire.o          listpack.h         networking.c     rdb.o              rio.c           slowlog.o       util.c
+ae_kqueue.c  config.o      fmacros.h         listpack.o         networking.o     redis-benchmark    rio.h           solarisfixes.h  util.h
+ae_select.c  crc16.c       geo.c             listpack_malloc.h  notify.c         redis-benchmark.c  rio.o           sort.c          util.o
+anet.c       crc16.o       geo.h             localtime.c        notify.o         redis-benchmark.o  scripting.c     sort.o          valgrind.sup
+anet.h       crc64.c       geo.o             localtime.o        object.c         redis-check-aof    scripting.o     sparkline.c     version.h
+anet.o       crc64.h       geohash.c         lolwut.c           object.o         redis-check-aof.c  sds.c           sparkline.h     ziplist.c
+aof.c        crc64.o       geohash.h         lolwut.o           pqsort.c         redis-check-aof.o  sds.h           sparkline.o     ziplist.h
+aof.o        db.c          geohash.o         lolwut5.c          pqsort.h         redis-check-rdb    sds.o           stream.h        ziplist.o
+asciilogo.h  db.o          geohash_helper.c  lolwut5.o          pqsort.o         redis-check-rdb.c  sdsalloc.h      syncio.c        zipmap.c
+atomicvar.h  debug.c       geohash_helper.h  lzf.h              pubsub.c         redis-check-rdb.o  sentinel.c      syncio.o        zipmap.h
+bio.c        debug.o       geohash_helper.o  lzfP.h             pubsub.o         redis-cli          sentinel.o      t_hash.c        zipmap.o
+bio.h        debugmacro.h  help.h            lzf_c.c            quicklist.c      redis-cli.c        server.c        t_hash.o        zmalloc.c
+bio.o        defrag.c      hyperloglog.c     lzf_c.o            quicklist.h      redis-cli.o        server.h        t_list.c        zmalloc.h
+bitops.c     defrag.o      hyperloglog.o     lzf_d.c            quicklist.o      redis-sentinel     server.o        t_list.o        zmalloc.o
+bitops.o     dict.c        intset.c          lzf_d.o            rand.c           redis-server       setproctitle.c  t_set.c
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment">#</span>
+</code></pre></div><h3 id="配置主从">配置主从</h3> <ul><li>主 <code>10.10.7.105:7000</code></li> <li>从 <code>10.10.7.105:7001</code></li></ul> <h4 id="更改主服务器配置">更改主服务器配置</h4> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># cp redis.conf redis-7000.conf</span>
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># vim redis-7000.conf</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code><span class="token comment"># bind 127.0.0.1 # 注释掉</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code>port <span class="token number">6379</span>
+<span class="token comment"># 改为</span>
+port <span class="token number">7000</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code>protected-mode <span class="token function">yes</span>
+<span class="token comment"># 改为</span>
+protected-mode no <span class="token comment"># 保护模式</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code>daemonize no
+<span class="token comment"># 改为</span>
+daemonize <span class="token function">yes</span> <span class="token comment"># 守护进程</span>
+</code></pre></div><h4 id="更改从服务器配置">更改从服务器配置</h4> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># cp redis.conf redis-7001.conf</span>
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># vim redis-7001.conf</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code><span class="token comment"># bind 127.0.0.1 # 注释掉</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code>port <span class="token number">6379</span>
+<span class="token comment"># 改为</span>
+port <span class="token number">7001</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code>protected-mode <span class="token function">yes</span>
+<span class="token comment"># 改为</span>
+protected-mode no <span class="token comment"># 保护模式</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code>daemonize no
+<span class="token comment"># 改为</span>
+daemonize <span class="token function">yes</span> <span class="token comment"># 守护进程</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code><span class="token comment"># replicaof &lt;masterip&gt; &lt;masterport&gt;</span>
+replicaof <span class="token number">10.10</span>.10.10 <span class="token number">7000</span> <span class="token comment">## 添加主机地址</span>
+</code></pre></div><h3 id="启动主从">启动主从</h3> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># ./src/redis-server ./redis-7000.conf</span>
+<span class="token number">14635</span>:C <span class="token number">30</span> Dec <span class="token number">2019</span> 01:05:41.223 <span class="token comment"># oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span>
+<span class="token number">14635</span>:C <span class="token number">30</span> Dec <span class="token number">2019</span> 01:05:41.223 <span class="token comment"># Redis version=5.0.7, bits=64, commit=00000000, modified=0, pid=14635, just started</span>
+<span class="token number">14635</span>:C <span class="token number">30</span> Dec <span class="token number">2019</span> 01:05:41.223 <span class="token comment"># Configuration loaded</span>
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment">#</span>
+
+
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># ./src/redis-server ./redis-7001.conf</span>
+<span class="token number">14635</span>:C <span class="token number">30</span> Dec <span class="token number">2019</span> 01:05:41.223 <span class="token comment"># oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span>
+<span class="token number">14635</span>:C <span class="token number">30</span> Dec <span class="token number">2019</span> 01:05:41.223 <span class="token comment"># Redis version=5.0.7, bits=64, commit=00000000, modified=0, pid=14635, just started</span>
+<span class="token number">14635</span>:C <span class="token number">30</span> Dec <span class="token number">2019</span> 01:05:41.223 <span class="token comment"># Configuration loaded</span>
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment">#</span>
+
+
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># netstat -ntlp</span>
+Active Internet connections <span class="token punctuation">(</span>only servers<span class="token punctuation">)</span>
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">0.0</span>.0.0:7000            <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">14631</span>/./src/redis-s
+tcp        <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">0.0</span>.0.0:7001            <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">14636</span>/./src/redis-s
+tcp        <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">127.0</span>.0.1:25            <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">1267</span>/master
+tcp        <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">0.0</span>.0.0:22              <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">1112</span>/sshd
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::7000                 :::*                    LISTEN      <span class="token number">14631</span>/./src/redis-s
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::7001                 :::*                    LISTEN      <span class="token number">14636</span>/./src/redis-s
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> ::1:25                  :::*                    LISTEN      <span class="token number">1267</span>/master
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::22                   :::*                    LISTEN      <span class="token number">1112</span>/sshd
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment">#</span>
+
+
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># ./src/redis-cli -p 7000</span>
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span> info Replication
+<span class="token comment"># Replication</span>
+role:master
+connected_slaves:1
+slave0:ip<span class="token operator">=</span><span class="token number">10.10</span>.7.105,port<span class="token operator">=</span><span class="token number">7001</span>,state<span class="token operator">=</span>online,offset<span class="token operator">=</span><span class="token number">308</span>,lag<span class="token operator">=</span><span class="token number">0</span>
+master_replid:4730f002b74c2e1abe59feb295eff916066c98b0
+master_replid2:0000000000000000000000000000000000000000
+master_repl_offset:308
+second_repl_offset:-1
+repl_backlog_active:1
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:1
+repl_backlog_histlen:308
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span>
+
+
+<span class="token punctuation">[</span>root@localhost redis-5.0.7<span class="token punctuation">]</span><span class="token comment"># ./src/redis-cli -p 7001</span>
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span> info Replication
+<span class="token comment"># Replication</span>
+role:slave
+master_host:10.10.7.105
+master_port:7000
+master_link_status:up
+master_last_io_seconds_ago:3
+master_sync_in_progress:0
+slave_repl_offset:322
+slave_priority:100
+slave_read_only:1
+connected_slaves:0
+master_replid:4730f002b74c2e1abe59feb295eff916066c98b0
+master_replid2:0000000000000000000000000000000000000000
+master_repl_offset:322
+second_repl_offset:-1
+repl_backlog_active:1
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:1
+repl_backlog_histlen:322
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>
+</code></pre></div><h3 id="读写测试-2">读写测试</h3> <ul><li>主</li></ul> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span> keys *
+<span class="token punctuation">(</span>empty list or <span class="token builtin class-name">set</span><span class="token punctuation">)</span>
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span> <span class="token builtin class-name">set</span> hello ahri
+OK
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span> keys *
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;hello&quot;</span>
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span> get hello
+<span class="token string">&quot;ahri&quot;</span>
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span>
+</code></pre></div><ul><li>从</li></ul> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span> keys *
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;hello&quot;</span>
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span> get hello
+<span class="token string">&quot;ahri&quot;</span>
+<span class="token number">127.0</span>.0.1:700<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>
+</code></pre></div><div id="valine" class="valine"><hr style="border-top: 4px dashed #ddd"> <div id="vcomments"></div></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/fox-ahri/ahriblog/edit/master/docs/redis/主从复制.md" target="_blank" rel="noopener noreferrer">编辑文档</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">最近更新:</span> <span class="time">2 分钟前</span></div></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/redis/待续.html">待续...</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.bac83035.js" defer></script><script src="/assets/js/2.ab27360f.js" defer></script><script src="/assets/js/27.6e515c75.js" defer></script><script src="/assets/js/7.334e8549.js" defer></script><script src="/assets/js/4.7c749548.js" defer></script>
+  </body>
+</html>
