@@ -8,6 +8,12 @@
       </a>
     </div>
     <div class="list">
+      <a class="link" href="/redis">
+        Redis
+        <span>正在更新</span>
+      </a>
+    </div>
+    <div class="list">
       <a class="link" href="/lvs">
         LVS
         <span>测试</span>
