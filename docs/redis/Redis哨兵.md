@@ -9,7 +9,9 @@ sidebarDepth: 3
 #### 非 root 用户 请添加 sudo
 :::
 
-## Redis 哨兵机制
+## Redis 哨兵
+> 在复制的基础上，哨兵实现了自动化的故障恢复。缺陷是写操作无法负载均衡，存储能力受单机限制。
+
 ### 哨兵的作用
 - 集群监控：负责监控 `redis master` 和 `slave` 进程是否正常工作
 - 消息通知：某个 `redis` 实例出现故障时，发送警报消息给管理员
@@ -225,7 +227,7 @@ tcp6       0      0 :::22                   :::*                    LISTEN      
 ```
 
 
-### 读写测试
+### Python 读写测试
 ```py
 from redis.sentinel import Sentinel
 sentinel = Sentinel([('10.10.7.105', 27000), ('10.10.7.105', 27001), ('10.10.7.105', 27002)], socket_timeout=0.1)
