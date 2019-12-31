@@ -1,0 +1,1 @@
+- [虚拟机安装Centos7](/Linux运维/虚拟机安装Centos7)
