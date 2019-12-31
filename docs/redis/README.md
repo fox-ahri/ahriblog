@@ -1,2 +1,3 @@
 - [主从复制](/redis/主从复制)
+- [Redis哨兵](/redis/Redis哨兵)
 - [待续...](/docker/待续)
