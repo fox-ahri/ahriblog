@@ -13,6 +13,7 @@ module.exports = {
     ],
     plugins: plugins,
     markdown: {
+        lineNumbers: true,
         anchor: { permalink: false },
         toc: { includeLevel: [1, 2, 3] },
         extendMarkdown: md => {
