@@ -1,13 +1,9 @@
-const lvs = require('./lvs/index')
-const docker = require('./docker/index')
-const redis = require('./redis/index')
-const Linux运维 = require('./Linux运维/index')
-
 module.exports = {
-    '/Linux运维/': Linux运维,
-    '/redis/': redis,
-    '/docker/': docker,
-    '/lvs/': lvs,
+    '/mongo/': require('./mongo/index'),
+    '/Linux运维/': require('./Linux运维/index'),
+    '/redis/': require('./redis/index'),
+    '/docker/': require('./docker/index'),
+    '/lvs/': require('./lvs/index'),
     // fallback
     '/': ['', 'about/']
 }

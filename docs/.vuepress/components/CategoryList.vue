@@ -10,21 +10,27 @@
     <div class="list">
       <a class="link" href="/docker">
         Docker
-        <span>正在更新</span>
+        <!-- <span>正在更新</span> -->
       </a>
     </div>
     <div class="list">
       <a class="link" href="/redis">
         Redis
-        <span>正在更新</span>
+        <span>待补充</span>
       </a>
     </div>
     <div class="list">
+      <a class="link" href="/mongo">
+        Mongo
+        <span>正在更新</span>
+      </a>
+    </div>
+    <!-- <div class="list">
       <a class="link" href="/lvs">
         LVS
         <span>测试</span>
       </a>
-    </div>
+    </div> -->
   </div>
 </template>
 
