@@ -1,5 +1,5 @@
 ---
-title: 主从复制
+title: Redis主从复制
 sidebarDepth: 3
 ---
 
@@ -11,6 +11,30 @@ sidebarDepth: 3
 
 ## 主从复制
 > 复制是高可用Redis的基础，哨兵和集群都是在复制的基础上实现高可用的。复制主要实现了数据的多备份，对于读写操作的负载均衡和简单的故障恢复。缺陷是故障恢复无法自动化，写操作无法负载均衡，存储能力受单机限制。
+#### 读写分离
+> 在 redis 主从架构中，Master 节点负责处理写请求，Slave 节点只处理读请求。对于写请求少，读请求多的场景(例如电商详情页)，通过这种读写分离的操作可以大幅提高并发量，通过增加 redis 从节点的数量可以使得 redis 的QPS 达到 10W+。
+#### 主从同步
+> Master 节点接收到写请求并处理后，告知 Slave 节点数据发生了改变，保持主从节点数据一致的行为称为主从同步，所有的 Slave 都和 Master 通信去同步数据也会加大 Master 节点的负担，实际上，除了主从同步，redis 也可以从从同步。
+
+## 主从同步的方法
+#### 增量同步
+> redis 同步的是指令流，主节点会将那些对自己的状态产生修改性影响的指令记录在本地的内存 buffer 中，然后异步将 buffer 中的指令同步到从节点，从节点一边执行同步的指令流来达到和主节点一样的状态，一边向主节点反馈自己同步的偏移量。从节点同步数据的时候不会影响主节点的正常工作，也不会影响自己对外提供读服务的功能，从节点会用旧的数据来提供服务，当同步完成后，删除旧数据集，加载新数据，这个时候会暂停对外服务。
+
+> 因为内存 buffer 的大小是有限的，所以 redis 主节点不能将所有的指令都记录在内存 buffer 中。redis 的复制内存 buffer 是一个定长的环形数组，如果数组内容满了，就会从头开始覆盖前面的内容。
+
+#### 快照同步
+> 如果节点间网络通信不好，那么当从节点同步的速度不如主节点接收新写请求的速度时，buffer 中会丢失一部分指令，从节点中的数据将与主节点中的数据不一致，此时将会触发快照同步。
+
+> 快照同步是一个非常耗费资源的操作，它首先需要在主节点上进行一次 bgsave 将当前内存的数据全部快照到 RDB 文件中，然后再将快照文件的内容全部传送到从节点。从节点将 RDB 文件接受完毕后，立即执行一次全量加载，加载之前先要将当前内存的数据清空。加载完毕后通知主节点继续进行增量同步。
+
+> 在整个快照同步进行的过程中，主节点的复制 buffer 还在不停的往前移动，如果快照同步的时间过长或者复制 buffer 太小，都会导致同步期间的增量指令在复制 buffer 中被覆盖，这样就会导致快照同步完成后无法进行增量复制，然后会再次发起快照同步，如此极有可能会陷入快照同步的死循环。所以需要配置一个合适的复制 buffer 大小参数，避免快照复制的死循环。
+
+#### 无盘复制
+> 主节点在进行快照同步时，会进行大量的文件 IO 操作，特别是对于非 SSD 磁盘存储时，快照会对系统的负载产生较大影响。当系统正在进行 AOF 的 fsync 操作时如果发生快照复制，fsync 将会被推迟执行，这就会严重影响主节点的服务效率。
+
+> 无盘复制是主节点会一边遍历内存，一边将序列化的内容发送到从节点，而不是生成完整的 RDB 文件后才进行 IO 传输。从节点先将接收到的内容存储到磁盘文件中，再进行一次性加载。
+
+
 
 ## Docker安装 redis
 ### 创建容器
@@ -45,7 +69,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 - 主 `172.17.0.2`
 - 从 `172.17.0.3`
 ```sh
-[root@localhost redis-5.0.7]# docker container exec -it 1e459f9cf6ff redis-cli
+[root@localhost redis-5.0.7]# docker container exec -it slave redis-cli
 127.0.0.1:6379> info replication
 # Replication
 role:master
@@ -86,7 +110,7 @@ repl_backlog_histlen:0
 
 ### 读写测试
 ```sh
-[root@localhost redis-5.0.7]# docker container exec -it 3582dc6990ba redis-cli
+[root@localhost redis-5.0.7]# docker container exec -it master redis-cli
 127.0.0.1:6379> keys *
 (empty list or set)
 127.0.0.1:6379> set hello ahri
@@ -97,7 +121,7 @@ OK
 "ahri"
 127.0.0.1:6379> quit
 
-[root@localhost redis-5.0.7]# docker container exec -it 1e459f9cf6ff redis-cli
+[root@localhost redis-5.0.7]# docker container exec -it slave redis-cli
 127.0.0.1:6379> keys *
 1) "hello"
 127.0.0.1:6379> get hello
@@ -182,8 +206,8 @@ bitops.o     dict.c        intset.c          lzf_d.o            rand.c          
 ```
 
 ### 配置主从
-- 主 `10.10.7.105:7000`
-- 从 `10.10.7.105:7001`
+- 主 `10.10.10.100:7000`
+- 从 `10.10.10.100:7001`
 #### 更改主服务器配置
 ```sh
 [root@localhost redis-5.0.7]# cp redis.conf redis-7000.conf
@@ -272,7 +296,7 @@ tcp6       0      0 :::22                   :::*                    LISTEN      
 # Replication
 role:master
 connected_slaves:1
-slave0:ip=10.10.7.105,port=7001,state=online,offset=308,lag=0
+slave0:ip=10.10.10.100,port=7001,state=online,offset=308,lag=0
 master_replid:4730f002b74c2e1abe59feb295eff916066c98b0
 master_replid2:0000000000000000000000000000000000000000
 master_repl_offset:308
@@ -288,7 +312,7 @@ repl_backlog_histlen:308
 127.0.0.1:7001> info Replication
 # Replication
 role:slave
-master_host:10.10.7.105
+master_host:10.10.10.100
 master_port:7000
 master_link_status:up
 master_last_io_seconds_ago:3
