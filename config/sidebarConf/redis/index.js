@@ -6,6 +6,6 @@ module.exports = [
         'Redis主从复制',
         'Redis哨兵',
         'Redis集群',
-        '待续'
+        '待补充'
     ])
 ]
