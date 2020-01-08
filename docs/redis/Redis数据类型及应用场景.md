@@ -53,6 +53,8 @@ sidebarDepth: 3
 
     -   分布式锁
 
+        <a href="#分布式锁应用场景">↓↓ 分布式锁应用场景</a>
+
         ```sh
         SETNX product:10001 true # 返回 1 获取锁成功，0 失败
         # 执行业务 ...
@@ -170,6 +172,150 @@ sidebarDepth: 3
 
 ### Set
 
-### ZSet
+-   常用操作
+
+| 操作                         | 作用                                               |
+| ---------------------------- | -------------------------------------------------- |
+| SADD key member [member ...] | 往集合中存入元素，元素存在则忽略，key 不存在则新建 |
+| SREM key member [member ...] | 从集合 key 中删除元素                              |
+| SMEMBERS key                 | 获取集合 key 中所有元素                            |
+| SCARD key                    | 获取集合 key 中元素个数                            |
+| SISMEMBER key member         | 判断 member 元素是否存在于集合 key 中              |
+| SRANDMEMBER key count        | 从集合 key 中复制出 count 个元素                   |
+| SPOP key count               | 从集合 key 中取出 count 个元素                     |
+
+-   运算符操作
+
+| 操作                                  | 作用                                  |
+| ------------------------------------- | ------------------------------------- |
+| SINTER key [key ...]                  | 交集运算                              |
+| SINTERSTORE destination key [key ...] | 将交集的结果存入新集合 destination 中 |
+| SUNION key [key ...]                  | 并集运算                              |
+| SUNIONSTORE destination key [key ...] | 将并集的结果存入新集合 destination 中 |
+| SDIFF key [key ...]                   | 差集运算                              |
+| SDIFFSTORE destination key [key ...]  | 将差集的结果存入新集合 destination 中 |
+
+-   应用场景
+
+    -   抽奖程序
+
+        ```sh
+        # 点击参与抽奖  act:1 一号抽奖  1000 用户id
+        SADD act:1 1000
+        # 查看参与抽 act:1 奖的所有用户
+        SMEMBERS act:1
+        # 选取 count 名获奖者
+        SRANDMEMBER act:1 count # 单次抽奖
+        SPOP act:1 count # 多级抽奖
+        ```
+
+    -   点赞、收藏
+
+        ```sh
+        # 点赞
+        SADD like:msgId userId
+        # 取消点赞
+        SREM like:msgId userId
+        # 查看用户是否点赞
+        SISMEMBER like:msgId userId
+        # 获取点赞的用户列表
+        SMEMBERS like:msgId
+        # 获取点赞数
+        SCARD like:msgId
+        ```
+
+    -   关注
+
+        ```sh
+        # A 关注了 abc
+        ASet -> { B, C, D }
+        # B 关注了 abcd
+        BSet -> { A, C, D, E }
+        # C 关注了 bcde
+        CSet -> { A, B, C, D, E }
+        # AB 共同关注
+        SINTER ASet BSet -> { C, D }
+        # A 关注的 B 是否也关注了 C, D
+        SISMEMBER BSet C
+        SISMEMBER BSet D
+        # A 可能通过 B 认识的人
+        SDIFF ASet BSet -> { (A), (B), E }
+        ```
+
+## 分布式锁应用场景<a name="分布式锁应用场景"></a>
+#### 抢票
+```python
+import time
+import uuid
+from threading import Thread
+
+import redis
+
+redis_client = redis.Redis(host="127.0.0.1",
+                           port=6379,
+                           # password=123,
+                           db=10)
+
+#获取锁
+# lock_name：锁定名称
+# acquire_time: 客户端等待获取锁的时间
+# time_out: 锁的超时时间
+def acquire_lock(lock_name, acquire_time=10, time_out=10):
+    """获取一个分布式锁"""
+    identifier = str(uuid.uuid4())
+    end = time.time() + acquire_time
+    lock = "string:lock:" + lock_name
+    while time.time() < end:
+        if redis_client.setnx(lock, identifier):
+            # 给锁设置超时时间, 防止进程崩溃导致其他进程无法获取锁
+            redis_client.expire(lock, time_out)
+            return identifier
+        elif not redis_client.ttl(lock):
+            redis_client.expire(lock, time_out)
+        time.sleep(0.001)
+    return False
+
+#释放锁
+def release_lock(lock_name, identifier):
+    """释放一个分布式锁"""
+    lock = "string:lock:" + lock_name
+    pip = redis_client.pipeline(True)
+    while True:
+        try:
+            pip.watch(lock)
+            lock_value = redis_client.get(lock)
+            if not lock_value:
+                return True
+
+            if lock_value.decode() == identifier:
+                pip.multi()
+                pip.delete(lock)
+                pip.execute()
+                return True
+            pip.unwatch()
+            break
+        except redis.excetions.WacthcError:
+            pass
+    return False
+
+count=10
+
+def seckill(i):
+    identifier=acquire_lock('resource')
+    print("线程:{}--获得了锁".format(i))
+    time.sleep(1)
+    global count
+    if count<1:
+        print("线程:{}--没抢到，票抢完了".format(i))
+        return
+    count-=1
+    print("线程:{}--抢到一张票，还剩{}张票".format(i,count))
+    release_lock('resource',identifier)
+
+
+for i in range(50):
+    t = Thread(target=seckill,args=(i,))
+    t.start()
+```
 
 <Valine />
