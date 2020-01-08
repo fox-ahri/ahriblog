@@ -5,6 +5,7 @@ module.exports = [
         'Nginx基本概念',
         'CentOS7应用Nginx',
         'Nginx配置文件',
+        'Nginx反向代理',
         '待续'
     ])
 ]
