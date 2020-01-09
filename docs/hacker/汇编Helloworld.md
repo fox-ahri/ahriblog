@@ -67,88 +67,107 @@ msg:
 ### 编译汇编代码
 
 ```sh
-nasm -o boot.bat helloworld.asm
+nasm -o boot.bin helloworld.asm
 ```
 
 ### 创建虚拟软盘
 
-```java
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
+```sh
+dd if=/dev/zero of=tmp.img bs=1024 count=1440
+```
 
+### 将二进制文件写入软盘
 
-public class OperatingSystem {
-    private int[] imgContent = new int[]{
-        0xeb,0x4e,0x90,0x48,0x45,0x4c,0x4c,0x4f,0x49,0x50,0x4c,0x00,0x02,0x01,0x01,0x00,0x02,0xe0,
-        0x00,0x40,0x0b,0xf0,0x09,0x00,0x12,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x40,0x0b,0x00,0x00,0x00,0x00,0x29,
-        0xff,0xff,0xff,0xff,0x48,0x45,0x4c,0x4c,0x4f,0x2d,0x4f,0x53,0x20,0x20,0x20,0x46,0x41,0x54,0x31,0x32,
-        0x20,0x20,0x20,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xb8,0x00,0x00,0x8e,
-        0xd0,0xbc,0x00,0x7c,0x8e,0xd8,0x8e,0xc0,0xbe,0x74,0x7c,0x8a,
-        0x04,0x83,0xc6,0x01,0x3c,0x00,0x74,0x09,0xb4,0x0e,0xbb,0x0f,0x00,0xcd,0x10,0xeb,0xee,0xf4,0xeb,0xfd
-    };
+```sh
+dd if=boot.bin of=boot.img bs=512 count=1
+dd if=tmp.img of=boot.img skip=1 seek=1 bs=512 count=2879
+```
 
-    private ArrayList<Integer> imgByteToWrite = new ArrayList<Integer>();
+或用 windows 平台软件操作
 
+[FloppyWriter](http://ahri-share.oss-cn-beijing.aliyuncs.com/blog/hacker/FloppyWriter.exe)
 
+![FloppyWriter](./static/FloppyWriter.png)
 
-    public OperatingSystem(String s) {
-        for (int i = 0; i < imgContent.length; i++) {
-            imgByteToWrite.add(imgContent[i]);
-        }
+先选择二进制文件 boot.bin，再选择软盘镜像 boot.img
 
-        imgByteToWrite.add(0x0a);
-        imgByteToWrite.add(0x0a);
-        for (int j = 0; j < s.length(); j++) {
-            imgByteToWrite.add((int)s.charAt(j));
-        }
-        imgByteToWrite.add(0x0a);
+### 启动系统
 
-        int len = 0x1fe;
-        int curSize = imgByteToWrite.size();
-        for (int k = 0; k < len - curSize; k++) {
-            imgByteToWrite.add(0);
-        }
+Vmware 添加软盘驱动并选择 boot.img，启动
+[写好的 boot.img](http://ahri-share.oss-cn-beijing.aliyuncs.com/blog/hacker/boot.img)
 
-        //0x1fe-0x1f: 0x55, 0xaa
-        //0x200-0x203: f0 ff  ff
-        imgByteToWrite.add(0x55);
-        imgByteToWrite.add(0xaa);
-        imgByteToWrite.add(0xf0);
-        imgByteToWrite.add(0xff);
-        imgByteToWrite.add(0xff);
+![run](./static/run.png)
 
-        len = 0x168000;
-        curSize = imgByteToWrite.size();
-        for (int l = 0; l < len - curSize; l++) {
-            imgByteToWrite.add(0);
-        }
+## 汇编读软盘
 
-    }
+使用汇编读取软盘的原理与上面描述的相同，我们要调用相应的 BIOS 中断，同时将要读取的磁头号，柱面，扇区号传给中断代码，读取软盘的汇编代码如下：
 
-    public void makeFllopy()   {
-        try {
-            DataOutputStream out = new DataOutputStream(new FileOutputStream("system.img"));
-            for (int i = 0; i < imgByteToWrite.size(); i++) {
-                out.writeByte(imgByteToWrite.get(i).byteValue());
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+```asm
+mov CH, 1 ; CH 存储柱面号
+mov DH, 0 ; DH 存储磁头号
+mov CL, 2 ; CL 存储扇区号
 
-    }
+mov BX, msg ; BX 数据存储缓冲区
 
-    public static void main(String[] args) {
-        OperatingSystem op = new OperatingSystem("hello, this is my first line of my operating system code");
-        op.makeFllopy();
-    }
-}
+mov AH, 0x02 ; AH = 02 表示要做的是读盘操作
+mov AL, 1 ; AL 表示要练习读取几个扇区
+mov DL, 0 ; 驱动器编号，只有一个软盘驱动器，所以为 0
+INT 0x13 ; 调用 BIOS 中断实现磁盘读取功能
+JC error ; 如果读盘出现错误，跳转到 error 处执行相应代码
+```
+
+在计算机硬件中，有一个隐含的寄存器叫 FLACS, 当 BIOS 调用出现错误时，FLACS 寄存器的 CF 位会置为 1，同时把错误代码存入 AH,如果没有错，那么 FLACS 寄存器的 CF 位会设置为 0
+
+### 读取软盘的汇编代码
+
+将第二扇区的数据读取出来并显示
+
+```asm
+org  0x7c00;
+
+entry:
+    mov  ax, 0
+    mov  ss, ax
+    mov  ds, ax
+    mov  es, ax
+    mov  si, msg
+
+readContent:
+    mov  CH, 1
+    mov  DH, 0
+    mov  CL, 2
+
+    mov  BX, msg
+
+    mov  AH, 0x02
+    mov  AL,  1
+    mov  DL, 0
+    INT  0x13
+
+    jc  error
+
+putloop:
+    mov  al, [si]
+    add  si, 1
+    cmp  al, 0
+    je   fin
+    mov  ah, 0x0e
+    mov  bx, 15
+    int  0x10
+    jmp  putloop
+
+fin:
+    HLT
+    jmp  fin
+
+error:
+    mov si, errmsg
+    jmp   putloop
+
+msg:
+    RESB   64
+errmsg:
+    DB "error"
 ```
 
 <Valine />
