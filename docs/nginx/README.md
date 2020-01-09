@@ -1,1 +1,4 @@
 - [Nginx基本概念](/nginx/Nginx基本概念)
+- [CentOS7应用Nginx](/nginx/CentOS7应用Nginx)
+- [Nginx配置文件](/nginx/Nginx配置文件)
+- [Nginx反向代理](/nginx/Nginx反向代理)

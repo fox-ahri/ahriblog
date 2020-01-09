@@ -1,4 +1,5 @@
 module.exports = {
+    '/hacker/': require('./hacker/index'),
     '/nginx/': require('./nginx/index'),
     '/mongo/': require('./mongo/index'),
     '/Linux运维/': require('./Linux运维/index'),

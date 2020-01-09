@@ -2,6 +2,12 @@
   <div id="category-list" class="category-list">
     <h3>所有文章：</h3>
     <div class="list">
+      <a class="link" href="/hacker">
+        Be a Hacker
+        <span>正在更新</span>
+      </a>
+    </div>
+    <div class="list">
       <a class="link" href="/Linux运维">
         Linux运维
         <span>正在更新</span>
