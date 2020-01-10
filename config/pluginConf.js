@@ -29,7 +29,7 @@ module.exports = [
             }
         }
     ],
-    ['vuepress-plugin-container'],
+    // ['vuepress-plugin-container'],
     [
         'vuepress-plugin-helper-live2d',
         {

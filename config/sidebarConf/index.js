@@ -6,6 +6,7 @@ module.exports = {
     '/redis/': require('./redis/index'),
     '/docker/': require('./docker/index'),
     '/lvs/': require('./lvs/index'),
+    '/category/': require('./category/index'),
     // fallback
     '/': ['', 'about/']
 }
