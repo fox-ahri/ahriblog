@@ -15,54 +15,112 @@ sidebarDepth: 3
 
 `10.10.10.100 ahri.com`
 
-#### 启动应用服务
+#### 准备 nginx 目录结构
 
-![flask5000.png](./static/flask5000.png)
-![flask5001.png](./static/flask5001.png)
+```sh
+[root@localhost ~]# tree /tmp/nginx/
+/tmp/nginx/
+├── n80
+│   ├── conf.d
+│   │   └── default.conf
+│   ├── html
+│   │   └── index.html
+│   └── nginx.conf
+├── n8001
+│   ├── conf.d
+│   │   └── default.conf
+│   ├── html
+│   │   └── index.html
+│   └── nginx.conf
+└── n8002
+    ├── conf.d
+    │   └── default.conf
+    ├── html
+    │   └── index.html
+    └── nginx.conf
+
+9 directories, 9 files
+[root@localhost ~]# cat /tmp/nginx/n80/html/index.html
+<h1>Hello, ahri. from port 80.</h1>
+[root@localhost ~]# cat /tmp/nginx/n8001/html/index.html
+<h1>Hello, ahri. from port 8001.</h1>
+[root@localhost ~]# cat /tmp/nginx/n8002/html/index.html
+<h1>Hello, ahri. from port 8002.</h1>
+[root@localhost ~]#
+```
+
+#### 启动 nginx 容器
+
+```sh
+[root@localhost ~]# docker container run --name n80 -p 80:80 -v /tmp/nginx/n80/nginx.conf:/etc/nginx/nginx.conf -v /tmp/nginx/n80/conf.d:/etc/nginx/conf.d -v /tmp/nginx/n80/html:/usr/share/nginx/html -d nginx
+65fe8597a21afdbfa6e2e32dcca5c21ec1ffd4c091575badd510ec19e53abe26
+[root@localhost ~]# docker container run --name n8001 -p 8001:80 -v /tmp/nginx/n8001/nginx.conf:/etc/nginx/nginx.conf -v /tmp/nginx/n8001/conf.d:/etc/nginx/conf.d -v /tmp/nginx/n8001/html:/usr/share/nginx/html -d nginx
+eb5ebab8a5b8321b579b8980cb1d57871b8dc62a5095f6f5e4ac70300d27294a
+[root@localhost ~]# docker container run --name n8002 -p 8002:80 -v /tmp/nginx/n8002/nginx.conf:/etc/nginx/nginx.conf -v /tmp/nginx/n8002/conf.d:/etc/nginx/conf.d -v /tmp/nginx/n8002/html:/usr/share/nginx/html -d nginx
+73d0688adbd5629ef07fd0556bd0b23fd1dd90fbbf6578e865ecf7bfa44f5d42
+[root@localhost ~]# docker container ls -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+73d0688adbd5        nginx               "nginx -g 'daemon of…"   6 seconds ago       Up 6 seconds        0.0.0.0:8002->80/tcp   n8002
+eb5ebab8a5b8        nginx               "nginx -g 'daemon of…"   25 seconds ago      Up 24 seconds       0.0.0.0:8001->80/tcp   n8001
+65fe8597a21a        nginx               "nginx -g 'daemon of…"   48 seconds ago      Up 47 seconds       0.0.0.0:80->80/tcp     n80
+[root@localhost ~]#
+```
+
+![nginx-80.png](./static/nginx-80.png)
+![nginx-8001.png](./static/nginx-8001.png)
+![nginx-8002.png](./static/nginx-8002.png)
 
 ## 编辑 Nginx 配置文件
 
 ```sh
 # 添加 server 块配置
-[root@localhost sbin]# vim /usr/local/nginx/conf/nginx.conf
+[root@localhost ~]# vim /tmp/nginx/n80/conf.d/default.conf
 
 server {
         listen       80;
         server_name  ahri.com;
 
         location / {
-            proxy_pass  http://127.0.0.1:5000;
+            proxy_pass  http://10.10.10.100:8001;
         }
 }
 
-[root@localhost sbin]# /usr/local/nginx/sbin/nginx -s reload
-[root@localhost sbin]#
+[root@localhost ~]# docker container restart n80
+n80
+[root@localhost ~]#
 ```
 
-![nginx-flask.png](./static/nginx-flask.png)
+![nginx-80-8001.png](./static/nginx-80-8001.png)
 
 
 ```sh
 # 添加 server 块配置
-[root@localhost sbin]# vim /usr/local/nginx/conf/nginx.conf
+[root@localhost sbin]# vim /tmp/nginx/n80/conf.d/proxy.conf
 
 server {
         listen       80;
         server_name  fox.com;
 
-        location ~ /f5000/ {
-            proxy_pass  http://127.0.0.1:5000;
+        location ~ /8001/ {
+            proxy_pass  http://10.10.10.100:8001;
         }
 
-        location ~ /f5001/ {
-            proxy_pass  http://127.0.0.1:5001;
+        location ~ /8002/ {
+            proxy_pass  http://10.10.10.100:8002;
         }
 }
 
-[root@localhost sbin]# /usr/local/nginx/sbin/nginx -s reload
-[root@localhost sbin]#
+
+[root@localhost ~]#  docker container restart n80
+n80
+[root@localhost ~]# mkdir /tmp/nginx/n8001/html/8001
+[root@localhost ~]# echo "8001" > /tmp/nginx/n8001/html/8001/index.html
+[root@localhost ~]# mkdir /tmp/nginx/n8002/html/8002
+[root@localhost ~]# echo "8002" > /tmp/nginx/n8002/html/8002/index.html
+[root@localhost ~]#
 ```
 
-![nginx-flask.png](./static/nginx-flask.png)
+![nginx-t-8001.png](./static/nginx-t-8001.png)
+![nginx-t-8002.png](./static/nginx-t-8002.png)
 
 <Valine />
