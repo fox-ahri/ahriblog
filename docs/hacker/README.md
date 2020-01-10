@@ -1,1 +1,1 @@
-- [汇编Helloworld](/nginx/汇编Helloworld)
+- [写一个操作系统内核](/nginx/写一个操作系统内核)

@@ -4,6 +4,6 @@ prev: /
 next: false
 ---
 
-<CategoryList />
+<AllArticle />
 
 
