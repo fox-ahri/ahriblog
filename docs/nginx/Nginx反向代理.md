@@ -72,6 +72,8 @@ eb5ebab8a5b8        nginx               "nginx -g 'daemon of…"   25 seconds ag
 
 ## 编辑 Nginx 配置文件
 
+### 实例 1
+
 ```sh
 # 添加 server 块配置
 [root@localhost ~]# vim /tmp/nginx/n80/conf.d/default.conf
@@ -92,6 +94,22 @@ n80
 
 ![nginx-80-8001.png](./static/nginx-80-8001.png)
 
+### 实例 2
+
+#### location 指令说明
+
+| 指令 | 说明                                                               |
+| ---- | ------------------------------------------------------------------ |
+| `=`  | 用于不含正则的 uri 前，请求字符串与 uri 严格匹配                   |
+| `^~` | 用于不含正则的 uri 前，找到与 uri 匹配度最高的 location 来处理请求 |
+| `~`  | 用于包含正则的 uri 前，区分大小写                                  |
+| `~*` | 用于包含正则的 uri 前，不区分大小写                                |
+
+::: warning 注意
+
+uri 中包含正则，必须有 `~` 或 `~*`。
+
+:::
 
 ```sh
 # 添加 server 块配置
@@ -101,10 +119,12 @@ server {
         listen       80;
         server_name  fox.com;
 
+        # 相当于访问 http://10.10.10.100:8001/8001
         location ~ /8001/ {
             proxy_pass  http://10.10.10.100:8001;
         }
 
+        # 相当于访问 http://10.10.10.100:8002/8002
         location ~ /8002/ {
             proxy_pass  http://10.10.10.100:8002;
         }

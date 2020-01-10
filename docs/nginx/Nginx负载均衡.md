@@ -9,60 +9,119 @@ sidebarDepth: 3
 
 ## 前置环境
 
-#### 在本地 host 文件添加映射
+#### 续上一篇文章 [Nginx 反向代理](https://docs.ahriknow.com/nginx/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.html)
 
-`10.10.10.100 fox.com`
+```sh
+[root@localhost ~]# docker container ls -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+73d0688adbd5        nginx               "nginx -g 'daemon of…"   58 minutes ago      Up 58 minutes       0.0.0.0:8002->80/tcp   n8002
+eb5ebab8a5b8        nginx               "nginx -g 'daemon of…"   58 minutes ago      Up 58 minutes       0.0.0.0:8001->80/tcp   n8001
+65fe8597a21a        nginx               "nginx -g 'daemon of…"   59 minutes ago      Up 34 minutes       0.0.0.0:80->80/tcp     n80
+[root@localhost ~]#
 
-`10.10.10.100 ahri.com`
-
-#### 启动应用服务
-
-![flask5000.png](./static/flask5000.png)
-![flask5001.png](./static/flask5001.png)
+```
 
 ## 编辑 Nginx 配置文件
 
 ```sh
-# 添加 server 块配置
-[root@localhost sbin]# vim /usr/local/nginx/conf/nginx.conf
+# 删除反向代理配置文件
+[root@localhost ~]# rm /tmp/nginx/n80/conf.d/proxy.conf
 
-server {
-        listen       80;
-        server_name  ahri.com;
+# 添加负载均衡配置文件
+[root@localhost ~]# vim /tmp/nginx/n80/conf.d/balance.conf
 
-        location / {
-            proxy_pass  http://127.0.0.1:5000;
-        }
+upstream balance {
+        server  10.10.10.100:8001;
+        server  10.10.10.100:8002;
 }
-
-[root@localhost sbin]# /usr/local/nginx/sbin/nginx -s reload
-[root@localhost sbin]#
-```
-
-![nginx-flask.png](./static/nginx-flask.png)
-
-
-```sh
-# 添加 server 块配置
-[root@localhost sbin]# vim /usr/local/nginx/conf/nginx.conf
 
 server {
         listen       80;
         server_name  fox.com;
 
-        location ~ /f5000/ {
-            proxy_pass  http://127.0.0.1:5000;
-        }
-
-        location ~ /f5001/ {
-            proxy_pass  http://127.0.0.1:5001;
+        location / {
+            proxy_pass  http://balance;
         }
 }
 
-[root@localhost sbin]# /usr/local/nginx/sbin/nginx -s reload
-[root@localhost sbin]#
+[root@localhost ~]# docker container restart n80
+n80
+[root@localhost ~]#
 ```
 
-![nginx-flask2.png](./static/nginx-flask2.png)
+#### 访问
+
+![balance1.png](./static/balance1.png)
+
+#### 刷新
+
+![balance2.png](./static/balance2.png)
+
+## 负载均衡分配策略
+
+-   轮询(默认)
+
+    每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器 down 掉，自动剔除
+
+-   权重 (weight)
+
+    weight 默认为 1，权重越高，分配的客户端越多
+
+    ```sh
+    # 分配到 10.10.10.100:8002 的客户端将是 10.10.10.100:8001 的2倍
+    upstream balance {
+            server  10.10.10.100:8001   weight=5;
+            server  10.10.10.100:8002   weight=10;
+    }
+    ```
+
+-   访问 ip (ip_hash)
+
+    每个请求按访问 ip 的 hash 结果分配，每个客户端固定访问一个后台服务器，可以解决 session 问题
+
+    ```sh
+    # 分配到 10.10.10.100:8002 的客户端将是 10.10.10.100:8001 的2倍
+    upstream balance {
+            ip_hash;
+            server  10.10.10.100:8001;
+            server  10.10.10.100:8002;
+    }
+    ```
+
+-   最少连接数 (least_conn)
+
+    将请求分发到负载低的服务器上
+
+    ```sh
+    upstream balance {
+            least_conn;
+            server  10.10.10.100:8001;
+            server  10.10.10.100:8002;
+    }
+    ```
+
+-   第三方 1 (fair)
+
+    按后端服务器的响应时间来分配请求，响应时间短的优先分配
+
+    ```sh
+    upstream balance {
+            server  10.10.10.100:8001;
+            server  10.10.10.100:8002;
+            fair;
+    }
+    ```
+
+-   第三方 2 (url_hash)
+
+    按访问 url 的 hash 结果来分配请求，使每个 url 定向到同一个后端服务器，后端服务器为缓存服务器时比较有效
+
+    ```sh
+    upstream balance {
+            server  10.10.10.100:8001;
+            server  10.10.10.100:8002;
+            hash $request_uri;
+    }
+    ```
 
 <Valine />
