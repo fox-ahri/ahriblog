@@ -1,5 +1,5 @@
 ---
-title: CentOS7应用Nginx
+title: CentOS7安装Nginx
 sidebarDepth: 3
 ---
 

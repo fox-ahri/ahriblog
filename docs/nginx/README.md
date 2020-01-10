@@ -1,4 +1,6 @@
 - [Nginx基本概念](/nginx/Nginx基本概念)
-- [CentOS7应用Nginx](/nginx/CentOS7应用Nginx)
+- [CentOS7安装Nginx](/nginx/CentOS7安装Nginx)
+- [Docker安装Nginx](/nginx/Docker安装Nginx)
 - [Nginx配置文件](/nginx/Nginx配置文件)
 - [Nginx反向代理](/nginx/Nginx反向代理)
+- [Nginx负载均衡](/nginx/Nginx负载均衡)
