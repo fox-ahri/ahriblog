@@ -8,6 +8,7 @@ module.exports = [
         'Nginx配置文件',
         'Nginx反向代理',
         'Nginx负载均衡',
+        'Nginx动静分离',
         '待续'
     ])
 ]

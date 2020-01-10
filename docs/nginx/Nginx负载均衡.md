@@ -18,7 +18,6 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 eb5ebab8a5b8        nginx               "nginx -g 'daemon of…"   58 minutes ago      Up 58 minutes       0.0.0.0:8001->80/tcp   n8001
 65fe8597a21a        nginx               "nginx -g 'daemon of…"   59 minutes ago      Up 34 minutes       0.0.0.0:80->80/tcp     n80
 [root@localhost ~]#
-
 ```
 
 ## 编辑 Nginx 配置文件
@@ -59,11 +58,13 @@ n80
 
 ## 负载均衡分配策略
 
--   轮询(默认)
+1.  轮询(默认)
+
 
     每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器 down 掉，自动剔除
 
--   权重 (weight)
+2.  权重 (weight)
+
 
     weight 默认为 1，权重越高，分配的客户端越多
 
@@ -75,7 +76,8 @@ n80
     }
     ```
 
--   访问 ip (ip_hash)
+3.  访问 ip (ip_hash)
+
 
     每个请求按访问 ip 的 hash 结果分配，每个客户端固定访问一个后台服务器，可以解决 session 问题
 
@@ -88,7 +90,8 @@ n80
     }
     ```
 
--   最少连接数 (least_conn)
+4.  最少连接数 (least_conn)
+
 
     将请求分发到负载低的服务器上
 
@@ -100,7 +103,8 @@ n80
     }
     ```
 
--   第三方 1 (fair)
+5.  第三方 1 (fair)
+
 
     按后端服务器的响应时间来分配请求，响应时间短的优先分配
 
@@ -112,7 +116,8 @@ n80
     }
     ```
 
--   第三方 2 (url_hash)
+6.  第三方 2 (url_hash)
+
 
     按访问 url 的 hash 结果来分配请求，使每个 url 定向到同一个后端服务器，后端服务器为缓存服务器时比较有效
 
