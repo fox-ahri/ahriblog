@@ -4,3 +4,5 @@
 - [Nginx配置文件](/nginx/Nginx配置文件)
 - [Nginx反向代理](/nginx/Nginx反向代理)
 - [Nginx负载均衡](/nginx/Nginx负载均衡)
+- [Nginx动静分离](/nginx/Nginx动静分离)
+- [Nginx高可用集群](/nginx/Nginx高可用集群)

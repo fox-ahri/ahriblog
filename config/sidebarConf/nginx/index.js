@@ -9,6 +9,7 @@ module.exports = [
         'Nginx反向代理',
         'Nginx负载均衡',
         'Nginx动静分离',
+        'Nginx高可用集群',
         '待续'
     ])
 ]
