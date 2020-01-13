@@ -21,6 +21,12 @@
             </a>
         </div>
         <div class="list">
+            <a class="link" href="/nginx">
+                Nginx
+                <span>正在更新</span>
+            </a>
+        </div>
+        <div class="list">
             <a class="link" href="/redis">
                 Redis
                 <span>待补充</span>
@@ -29,12 +35,6 @@
         <div class="list">
             <a class="link" href="/mongo">
                 Mongo
-                <span>正在更新</span>
-            </a>
-        </div>
-        <div class="list">
-            <a class="link" href="/nginx">
-                Nginx
                 <span>正在更新</span>
             </a>
         </div>
