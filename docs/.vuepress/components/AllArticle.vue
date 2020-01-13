@@ -245,6 +245,11 @@ export default {
                         },
                         {
                             tabs: 0,
+                            path: '/nginx/Nginx原理.html',
+                            name: 'Nginx原理'
+                        },
+                        {
+                            tabs: 0,
                             path: '/nginx/CentOS7安装Nginx.html',
                             name: 'CentOS7安装Nginx'
                         },
