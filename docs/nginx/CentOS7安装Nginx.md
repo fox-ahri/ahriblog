@@ -12,7 +12,7 @@ sidebarDepth: 3
 
 :::
 
-## 安装
+## 编译安装
 
 [Nginx 官网](http://nginx.org/)
 
@@ -70,6 +70,36 @@ success
 ```
 
 ![Nginx](./static/nginx.png)
+
+## yum 源安装
+
+#### 添加 rpm 包
+
+```sh
+[root@localhost ~]# sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+Retrieving http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+warning: /var/tmp/rpm-tmp.644lyb: Header V4 RSA/SHA1 Signature, key ID 7bd9bf62: NOKEY
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:nginx-release-centos-7-0.el7.ngx ################################# [100%]
+[root@localhost ~]#
+```
+
+#### 安装 nginx
+
+```sh
+yum install nginx -y
+```
+
+#### 管理 nginx
+
+```sh
+systemctl start nginx # 启动
+systemctl stop nginx # 停止
+systemctl reload nginx # 重载配置
+systemctl enable nginx # 开启开机启动
+systemctl disable nginx # 取消开机启动
+```
 
 ## Nginx 常用命令
 

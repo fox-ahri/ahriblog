@@ -3,6 +3,7 @@ const utils = require('../../../utils/index')
 module.exports = [
     utils.genSidebar('Nginx', [
         'Nginx基本概念',
+        'Nginx原理',
         'CentOS7安装Nginx',
         'Docker安装Nginx',
         'Nginx配置文件',
