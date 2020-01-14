@@ -4,25 +4,37 @@ sidebarDepth: 3
 ---
 
 ## 本页目录
+
 [[toc]]
 ::: tip
+
 #### 非 root 用户 请添加 sudo
+
 :::
 
 ## Docker 网络驱动模型
+
 [官方文档](https://docs.docker.com/) 给出了以下五种网络驱动模型:
-- **bridge**：网桥类型网络，实际上是五大虚拟网络中的 `NAT网络`，在Docker中叫做 `bridge` 网桥类型
-- **host**：主机类型网络，原理是容器使用宿主机的网络命名空间，因此会直接看到并使用宿主机的所有网络功能，在Docker中叫做 `host` 网络驱动
-- **none**：禁用容器网络，在容器中仅有 `lo` 网卡用于本地回环地址通信
-- **overlay**：叠加网络，借助 `docker swarn` 服务实现的高级叠加网络模型
-- **macvlan**：在 `macvlan` 网络模式下，可以把 `MAC` 地址分配给某个容器，这样Docker容器可以直接通过 `MAC` 地址进行路由传输，这样就不在依靠 `docker host` 进行转发，提高报文处理效率
+
+-   **bridge**：网桥类型网络，实际上是五大虚拟网络中的 `NAT网络`，在 Docker 中叫做 `bridge` 网桥类型
+-   **host**：主机类型网络，原理是容器使用宿主机的网络命名空间，因此会直接看到并使用宿主机的所有网络功能，在 Docker 中叫做 `host` 网络驱动
+-   **none**：禁用容器网络，在容器中仅有 `lo` 网卡用于本地回环地址通信
+-   **overlay**：叠加网络，借助 `docker swarn` 服务实现的高级叠加网络模型
+-   **macvlan**：在 `macvlan` 网络模式下，可以把 `MAC` 地址分配给某个容器，这样 Docker 容器可以直接通过 `MAC` 地址进行路由传输，这样就不在依靠 `docker host` 进行转发，提高报文处理效率
 
 ![Docker网络模型](./static/2.png)
-图中 `Closed container` 对应 `none` 网络模型，`Bridged container` 对应 ` bridge` 网络模型，`Joined container` 对应 `container` 网络模型，`Open container` 对应 `host` 网络模型
-
+图中 `Closed container` 对应 `none` 网络模型，`Bridged container` 对应 `bridge` 网络模型，`Joined container` 对应 `container` 网络模型，`Open container` 对应 `host` 网络模型
 
 ## Docker 网络模型信息
+
+### 查看容器 ip
+
+```sh
+docker container inspect --format='{{.Name}} - {{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+```
+
 ### 帮助命令
+
 ```sh
 [root@localhost ~]# docker network --help
 
@@ -42,8 +54,11 @@ Commands:
 Run 'docker network COMMAND --help' for more information on a command.
 [root@localhost ~]#
 ```
+
 ### 网络模型操作
+
 `docker network list`|`docker network ls` 显示所有网桥
+
 ```sh
 [root@localhost ~]# docker network list
 NETWORK ID          NAME                DRIVER              SCOPE
@@ -52,7 +67,9 @@ NETWORK ID          NAME                DRIVER              SCOPE
 8eeba124466c        none                null                local
 [root@localhost ~]#
 ```
+
 `docker inspect NETWORK_NAME` 查看单一网桥详细信息
+
 ```sh
 [root@localhost ~]# docker inspect bridge
 [
@@ -96,8 +113,11 @@ NETWORK ID          NAME                DRIVER              SCOPE
 ```
 
 ### 查看网桥
+
 #### bridge 网桥(默认)
+
 ![host](./static/3.png)
+
 ```sh
 [root@localhost ~]# docker run --rm -it centos /bin/sh
 sh-4.4# ip addr show
@@ -216,6 +236,7 @@ docker0         8000.024227e762bf       no              veth60b56d7
 ```
 
 #### host 网桥
+
 ```sh
 [root@localhost ~]# docker run -it --network host centos /bin/sh
 sh-4.4# ip addr show
@@ -301,6 +322,7 @@ sh-4.4#
 ```
 
 #### none 网桥
+
 ```sh
 [root@localhost ~]# docker run -it --network none centos /bin/sh
 sh-4.4# ip addr show
@@ -312,6 +334,7 @@ sh-4.4#
 ```
 
 ## 创建网桥
+
 ```sh
 [root@localhost ~]# docker network list
 NETWORK ID          NAME                DRIVER              SCOPE
@@ -443,6 +466,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 ```
 
 ### 创建指定 网桥 和 ip 的容器
+
 ```sh
 [root@localhost ~]# docker run -it --network=appoint-bridge --ip=10.10.10.2 centos /bin/bash
 [root@4af03148e740 /]# ip addr show
@@ -482,6 +506,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 ```
 
 ### 给容器添加或移除网络
+
 ```sh
 [root@localhost ~]# docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
@@ -558,6 +583,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 ```
 
 ## 删除网桥
+
 ```sh
 [root@localhost ~]# docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
@@ -576,7 +602,5 @@ NETWORK ID          NAME                DRIVER              SCOPE
 8eeba124466c        none                null                local
 [root@localhost ~]#
 ```
-
-
 
 <Valine />

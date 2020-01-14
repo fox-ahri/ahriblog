@@ -25,7 +25,7 @@ module.exports = [
         {
             options: {
                 margin: 16,
-                background: '#ddd'
+                background: '#ccc'
             }
         }
     ],

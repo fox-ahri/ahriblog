@@ -310,6 +310,17 @@ export default {
                             name: 'Redis集群'
                         }
                     ]
+                },
+                {
+                    path: '/mongo',
+                    name: 'Mongo',
+                    children: [
+                        {
+                            tabs: 0,
+                            path: '/mongo/主从复制.html',
+                            name: 'Mongo主从复制'
+                        }
+                    ]
                 }
             ]
         }

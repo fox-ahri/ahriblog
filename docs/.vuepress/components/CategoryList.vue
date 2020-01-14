@@ -11,7 +11,7 @@
         <div class="list">
             <a class="link" href="/Linux运维">
                 Linux运维
-                <span>正在更新</span>
+                <!-- <span>正在更新</span> -->
             </a>
         </div>
         <div class="list">
@@ -35,7 +35,7 @@
         <div class="list">
             <a class="link" href="/mongo">
                 Mongo
-                <span>计划更新</span>
+                <span>正在更新</span>
             </a>
         </div>
         <!-- <div class="list">

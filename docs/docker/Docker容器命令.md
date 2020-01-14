@@ -4,13 +4,18 @@ sidebarDepth: 3
 ---
 
 ## 本页目录
+
 [[toc]]
 ::: tip
+
 #### 非 root 用户 请添加 sudo
+
 :::
 
 ## 容器命令
+
 ### 帮助
+
 ```sh
 [root@localhost ~]# docker container --help
 
@@ -50,6 +55,7 @@ Run 'docker container COMMAND --help' for more information on a command.
 ```
 
 ### 首先拉取 centos 镜像
+
 ```sh
 [root@localhost ~]# docker pull centos
 Using default tag: latest
@@ -65,19 +71,22 @@ centos              latest              0f3e07c0138f        2 months ago        
 ```
 
 ### 新建并启动容器
+
 `docker [container] run [OPTIONS] IMAGENAME[:TAG]|IMAGEID [COMMAND] [ARG...]`
-- --name="NAME" 为容器指定一个名字
-- -d 后台运行容器，并打印容器 ID
-- -i 以交互模式启动容器，通常与 `-t` 同时使用
-- -t 为容器分配一个终端，通常与 `-i` 同时使用
-- -P 随机端口映射
-- -p 指定端口映射
-    - ip:hostPort:containerPort
-    - ip::containerPort
-    - hostPort:containerPort
-    - containerPort
-    
+
+-   --name="NAME" 为容器指定一个名字
+-   -d 后台运行容器，并打印容器 ID
+-   -i 以交互模式启动容器，通常与 `-t` 同时使用
+-   -t 为容器分配一个终端，通常与 `-i` 同时使用
+-   -P 随机端口映射
+-   -p 指定端口映射
+    -   ip:hostPort:containerPort
+    -   ip::containerPort
+    -   hostPort:containerPort
+    -   containerPort
+
 #### 交互模式非守护启动
+
 ```sh
 [root@localhost ~]# docker run --name my-centos -it centos
 [root@80be92c3b0fa /]# ls
@@ -85,7 +94,9 @@ bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  s
 [root@80be92c3b0fa /]# exit # 非后台容器 exit 会关闭容器，ctrl + p + q 可不关闭当前容器退出，-d 启动的不受影响
 [root@localhost ~]#
 ```
+
 #### 守护非交互模式启动 (容器没有前台应用会自动退出)
+
 ```sh
 [root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
@@ -111,11 +122,14 @@ fa750ca7fd8b        centos              "/bin/sh -c 'while t…"   4 seconds ago
 ```
 
 ### 列出容器
-`docker container ls [OPTIONS]`  `docker ps [OPTIONS]`
-- -a 查看所有容器(否则只查看正在运行的容器)
-- -l 查看上一个活动的容器
-- -n 查看指定个数的最近活动的容器
-- -q 只显示容器编号
+
+`docker container ls [OPTIONS]` `docker ps [OPTIONS]`
+
+-   -a 查看所有容器(否则只查看正在运行的容器)
+-   -l 查看上一个活动的容器
+-   -n 查看指定个数的最近活动的容器
+-   -q 只显示容器编号
+
 ```sh
 [root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
@@ -124,8 +138,16 @@ f088a82ba445        centos              "/bin/bash"         4 minutes ago       
 [root@localhost ~]#
 ```
 
+### 查看容器 ip
+
+```sh
+docker container inspect --format='{{.Name}} - {{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+```
+
 ### 启动容器
+
 `docker start Name|ID`
+
 ```sh
 [root@localhost ~]# docker start my-centos
 my-centos
@@ -137,8 +159,10 @@ f088a82ba445        centos              "/bin/bash"         6 minutes ago       
 ```
 
 ### 停止容器
+
 `docker stop Name|ID`
 `docker kill Name|ID` 强制停止容器
+
 ```sh
 [root@localhost ~]# docker stop f088a82ba445
 f088a82ba445
@@ -150,7 +174,9 @@ f088a82ba445        centos              "/bin/bash"         7 minutes ago       
 ```
 
 ### 重启容器
+
 `docker restart Name|ID`
+
 ```sh
 [root@localhost ~]# docker container ls
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
@@ -164,15 +190,18 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 ```
 
 ### 删除容器
+
 ```
 容器停止才能删除
 docker [container] rm [OPTIONS] \
 [CONTAINER_1_NAME|CONTAINER_1_ID] \
 [CONTAINER_2_NAME|CONTAINER_2_ID]
 ```
-- -f 强制删除容器
+
+-   -f 强制删除容器
 
 删除所有容器 `docker rm $(docker container ls -qa)`
+
 ```sh
 [root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
@@ -193,14 +222,17 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 ```
 
 ### 查看容器日志
+
 `docker [container] logs [OPTIONS] CONTAINER_NAME|CONTAINER_ID`
-- -f 跟踪实时日志
-- -t 显示时间戳
-- --tail 显示最新的指定行数
+
+-   -f 跟踪实时日志
+-   -t 显示时间戳
+-   --tail 显示最新的指定行数
+
 ```sh
 [root@localhost ~]# docker run -d centos /bin/sh -c "while true;do echo hello ahri;sleep 2;done"
 16a4191c0ddd72b266fb5459d9bf6305c1fc2eacf9c16679eb2a88e08f7f7861
-[root@localhost ~]# 
+[root@localhost ~]#
 [root@localhost ~]# docker logs -t --tail 3 16a4191c0ddd
 2019-12-26T08:39:35.619506153Z hello ahri
 2019-12-26T08:39:37.627557803Z hello ahri
@@ -209,7 +241,9 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 ```
 
 ### 查看容器内进程
+
 `docker [container] top CONTAINER_NAME|CONTAINER_ID`
+
 ```sh
 [root@localhost ~]# docker run -d centos /bin/sh -c "while true;do echo hello ahri;sleep 2;done"
 7bc64e5a42f8334f3c6198c173ae5b4607aa13ef1ccbaa0e8f17fe42c0446d2d
@@ -224,6 +258,7 @@ root                60474               60425               0                   
 ```
 
 ### 查看容器内细节
+
 `docker [container] inspect CONTAINER_NAME|CONTAINER_ID`
 
 ```sh
@@ -439,8 +474,10 @@ root                60474               60425               0                   
 ```
 
 ### 进入正在运行的容器并以命令行交互
+
 `docker [container] attach CONTAINER_NAME|CONTAINER_ID` 直接进入容器日东的终端
 `docker [container] exec -it CONTAINER_NAME|CONTAINER_ID bashShell` 在容器内新建终端并进入
+
 ```sh
 [root@localhost ~]# docker run -ti centos
 [root@091a4b9ad553 /]# ls -l /tmp
@@ -476,7 +513,9 @@ total 8
 ```
 
 ### 直接执行容器里的命令
+
 `docker [container] exec -it CONTAINER_NAME|CONTAINER_ID COMMAND`
+
 ```sh
 [root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
@@ -489,8 +528,11 @@ total 8
 ```
 
 ### 拷贝文件
+
 #### 宿主机 -> 容器
+
 `docker [container] cp -it CONTAINER_NAME|CONTAINER_ID COMMAND`
+
 ```sh
 [root@localhost ~]# docker container ls -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
@@ -513,8 +555,11 @@ total 12
 hello, ahri!
 [root@localhost ~]#
 ```
+
 #### 容器 -> 宿主机
+
 `docker [container] cp -it CONTAINER_NAME|CONTAINER_ID COMMAND`
+
 ```sh
 [root@localhost ~]# docker cp 091a4b9ad553:/tmp/ahri.txt .
 [root@localhost ~]# ls
@@ -523,7 +568,5 @@ ahri.txt  anaconda-ks.cfg
 hello, ahri!
 [root@localhost ~]#
 ```
-
-
 
 <Valine />
