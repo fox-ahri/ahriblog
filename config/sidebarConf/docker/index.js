@@ -11,6 +11,6 @@ module.exports = [
         'Docker数据卷',
         '镜像制作',
         'DockerFile',
-        '待续'
+        'Docker应用'
     ])
 ]

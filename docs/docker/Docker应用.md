@@ -1,5 +1,5 @@
 ---
-title: Docker网络配置
+title: Docker应用
 sidebarDepth: 3
 ---
 
@@ -23,7 +23,7 @@ docker pull oddrationale/docker-shadowsocks
 #### 启动容器
 
 ```sh
-docker run --name sstp -d -p 10000:10000 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 10000 -k password -m aes-256-cfb
+docker container run --name sstp -d -p 10000:10000 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 10000 -k password -m aes-256-cfb
 ```
 
 ## Docker 搭建 l2tp
@@ -52,7 +52,7 @@ sudo modprobe af_key
 #### 启动容器
 
 ```sh
-docker run \
+docker container run \
     --name l2tp \
     --env-file ./vpn.env \
     -p 500:500/udp \
