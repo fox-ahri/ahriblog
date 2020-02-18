@@ -9,7 +9,7 @@ module.exports = [
         'Docker容器命令',
         'Docker网络配置',
         'Docker数据卷',
-        '镜像制作',
+        'Docker镜像制作',
         'DockerFile',
         'Docker应用'
     ])
