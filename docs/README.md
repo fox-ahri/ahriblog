@@ -21,6 +21,8 @@ footer: MIT Licensed | Copyright © 2019 ahriknow.com
 **今天多学一点本事，明天就少说一句求人的话！**
 :::
 
+> 8-) :wink: :cry: :laughing: :yum: :-) :-( 8-) ;)
+
 # 一级标题
 ## 二级标题
 ### 三级标题
@@ -102,14 +104,14 @@ footer: MIT Licensed | Copyright © 2019 ahriknow.com
 *****
 ```
 
-![图片无效时的提示](https://aaahri.com/image/?h=100&w=200)
+![图片无效时的提示](https://cdn.ahriknow.com/images/pic.jpg)
 ```md
-![图片无效时的提示](https://aaahri.com/image/?h=100&w=200)
+![图片无效时的提示](https://cdn.ahriknow.com/images/pic.jpg)
 ```
 
-[超链接](https://www.ahriknow.com/#/book/read?_id=5da43726d8d0d5aa780aa9ff&name=%E6%96%87%E6%A1%A3%20-%20Ahridata&doc=1574331073477)
+[超链接](https://github.com/ahriknow/)
 ```md
-[超链接](https://www.ahriknow.com/#/book/read?_id=5da43726d8d0d5aa780aa9ff&name=%E6%96%87%E6%A1%A3%20-%20Ahridata&doc=1574331073477)
+[超链接](https://github.com/ahriknow/)
 ```
 
 ```java
@@ -120,16 +122,30 @@ class Hello{
 }
 ```
 ```md
-``java //前边应该三个 ` （ESC 下方的按键）
+\`\`\`java
 class Hello{
     public static void main(String[] args){
         System.out.println("hello, world");
     }
 }
-`` //前边应该三个 `
+\`\`\`
 ```
 
 `cd /home/test`
 ```md
 `cd /home/test`
+```
+
+$y=x+1$
+```md
+$y=x+1$
+```
+
+$$
+x^2+y^2=1
+$$
+```md
+$$
+x^2+y^2=1
+$$
 ```
