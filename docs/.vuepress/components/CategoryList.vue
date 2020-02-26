@@ -38,6 +38,12 @@
                 <span>正在更新</span>
             </a>
         </div>
+        <div class="list">
+            <a class="link" href="/algorithmanddatastructure">
+                Algorithm and data structure
+                <span>正在更新</span>
+            </a>
+        </div>
         <!-- <div class="list">
       <a class="link" href="/lvs">
         LVS

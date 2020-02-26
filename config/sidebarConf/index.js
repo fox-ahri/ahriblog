@@ -7,6 +7,7 @@ module.exports = {
     '/docker/': require('./docker/index'),
     '/lvs/': require('./lvs/index'),
     '/category/': require('./category/index'),
+    '/algorithmanddatastructure/': require('./algorithmanddatastructure/index'),
     // fallback
     '/': ['', 'about/']
 }
