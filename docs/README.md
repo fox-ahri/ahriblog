@@ -22,6 +22,9 @@ footer: MIT Licensed | Copyright © 2019 ahriknow.com
 :::
 
 > 8-) :wink: :cry: :laughing: :yum: :-) :-( 8-) ;)
+```md
+> 8-) :wink: :cry: :laughing: :yum: :-) :-( 8-) ;)
+```
 
 # 一级标题
 ## 二级标题
