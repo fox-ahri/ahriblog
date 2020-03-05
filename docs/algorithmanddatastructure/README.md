@@ -1,4 +1,4 @@
 - [Algorithm](/algorithmanddatastructure/Algorithm)
 - [LinearList](/algorithmanddatastructure/LinearList)
-<!-- - [SequenceList](/algorithmanddatastructure/SequenceList)
-- [SingleList](/algorithmanddatastructure/SingleList) -->
+- [SequenceList](/algorithmanddatastructure/SequenceList)
+- [SingleList](/algorithmanddatastructure/SingleList)

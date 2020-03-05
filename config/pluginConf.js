@@ -45,26 +45,26 @@ module.exports = [
 		}
 	],
 	// ['vuepress-plugin-container'],
-	[
-		'vuepress-plugin-helper-live2d',
-		{
-			live2d: {
-				enable: true,
-				model: 'hibiki', // https://github.com/JoeyBling/hexo-theme-yilia-plus/wiki/live2d%E6%A8%A1%E5%9E%8B%E5%8C%85%E5%B1%95%E7%A4%BA
-				display: {
-					position: 'right',
-					width: 135,
-					height: 300,
-					hOffset: 65,
-					vOffset: 0
-				},
-				mobile: {
-					show: false
-				},
-				react: {
-					opacity: 0.8
-				}
-			}
-		}
-	]
+	// [
+	// 	'vuepress-plugin-helper-live2d',
+	// 	{
+	// 		live2d: {
+	// 			enable: true,
+	// 			model: 'hibiki', // https://github.com/JoeyBling/hexo-theme-yilia-plus/wiki/live2d%E6%A8%A1%E5%9E%8B%E5%8C%85%E5%B1%95%E7%A4%BA
+	// 			display: {
+	// 				position: 'right',
+	// 				width: 135,
+	// 				height: 300,
+	// 				hOffset: 65,
+	// 				vOffset: 0
+	// 			},
+	// 			mobile: {
+	// 				show: false
+	// 			},
+	// 			react: {
+	// 				opacity: 0.8
+	// 			}
+	// 		}
+	// 	}
+	// ]
 ]

@@ -1,5 +1,6 @@
 ---
 title: 线性表
+sidebarDepth: 3
 ---
 
 ## 本页目录
@@ -14,8 +15,8 @@ title: 线性表
 
 -   集合中必存在唯一的一个“第一元素”。
 -   集合中必存在唯一的一个 “最后元素” 。
--   除最后一个元素之外，均有唯一的后继(后件)。
--   除第一个元素之外，均有唯一的前驱(前件)。
+-   除最后一个元素之外，均有唯一的后继。
+-   除第一个元素之外，均有唯一的前驱。
 
 ## 线性表基本操作
 
@@ -69,9 +70,9 @@ typedef struct {
 }SqList;
 ```
 
-    - 动态分配方法
-        - C语言: `L.data  = (ElemType*)malloc(sizeof(ElemType)*InitSize);`
-        - C++: `L.data = new ElemType[InitSize];`
+-   动态分配方法
+    -   C 语言: `L.data = (ElemType*)malloc(sizeof(ElemType)*InitSize);`
+    -   C++: `L.data = new ElemType[InitSize];`
 
 ### 链式表示
 

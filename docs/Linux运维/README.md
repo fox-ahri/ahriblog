@@ -1,4 +1,0 @@
-- [虚拟机安装Centos7](/Linux运维/虚拟机安装Centos7)
-- [CentOS7网络配置](/Linux运维/CentOS7网络配置)
-- [系统符号](/Linux运维/系统符号)
-- [Linux三剑客](/Linux运维/Linux三剑客)

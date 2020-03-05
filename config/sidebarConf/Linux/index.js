@@ -1,7 +1,7 @@
 const utils = require('../../../utils/index')
 
 module.exports = [
-    utils.genSidebar('Linux运维', [
+    utils.genSidebar('Linux', [
         '虚拟机安装Centos7',
         'CentOS7网络配置',
         '系统符号',
