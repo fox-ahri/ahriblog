@@ -4,12 +4,11 @@
     <div class="list">
       <a class="link" href="/hacker">
         Be a Hacker
-        <span>准备毕设，暂停更新</span>
       </a>
     </div>
     <br />
     <div class="list">
-      <a class="link" href="/Linux运维">
+      <a class="link" href="/Linux">
         Linux
         <!-- <span>正在更新</span> -->
       </a>
@@ -50,12 +49,12 @@
                 <span>正在更新</span>
             </a>
     </div>-->
-    <div class="list">
+    <!-- <div class="list">
       <a class="link" href="/datastructurejava">
         数据结构实现JAVA
         <span>正在更新</span>
       </a>
-    </div>
+    </div> -->
     <!-- <div class="list">
       <a class="link" href="/lvs">
         LVS
